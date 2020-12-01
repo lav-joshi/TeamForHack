@@ -5,7 +5,7 @@ const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 
-const port = process.env.PORT||3000;
+const port = process.env.PORT||3001;
 const app = express();
 
 const server=http.createServer(app);
@@ -20,5 +20,5 @@ app.get("/",(req,res)=>{
 });
 
 server.listen(port,()=>{
-    console.log("Sever started");
+    console.log("Sever started on 3001!");
 });
