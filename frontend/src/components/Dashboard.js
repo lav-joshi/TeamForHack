@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './css/dashboard.css';
 import { Link } from 'react-router-dom';
 import Nav from './Nav';
 
-export default function Dashboard() {
-  return (
-    <div>
+class Dashboard extends Component {
+  constructor() {
+    super();
+    this.state = {
+      names : []
+    }
+  }
+  componentDidMount(){
+    fetch('/dashboard').then(res => res.json()).then(names => this.setState({names}));
+  }
+  render() {
+    const { names } = this.state;
+    return (
+      <div>
       <Nav></Nav>
       <header className="masthead">
         <div className="container h-100">
@@ -41,8 +52,18 @@ export default function Dashboard() {
             voluptatem hic, assumenda aspernatur facere ipsam nemo ratione
             cumque magnam enim fugiat reprehenderit expedita.
           </p>
+          <p>
+          {
+            names.map(name => 
+                <li> {name}</li>
+              )
+          }
+          </p>
         </div>
       </section>
     </div>
-  );
+    )
+  }
 }
+
+export default Dashboard;

@@ -9,7 +9,7 @@
     "client-install": "cd frontend && npm i",
     "frontend": "npm start --prefix frontend",
     "server": "npm run dev --prefix backend",
-    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+    "start": "concurrently \"npm run server\" \"npm run frontend\""
   },
   "repository": {
     "type": "git",
