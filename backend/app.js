@@ -15,8 +15,8 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 
 
-app.get("/",(req,res)=>{
-    res.render("home");
+app.get("/dashboard",(req,res)=>{
+    console.log("hi");
 });
 
 server.listen(port,()=>{
