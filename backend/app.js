@@ -5,7 +5,7 @@ const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 
-const port = process.env.PORT||3000;
+const port = process.env.PORT||3001;
 const app = express();
 
 const server=http.createServer(app);
@@ -15,10 +15,13 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 
 
-app.get("/",(req,res)=>{
-    res.render("home");
+app.get("/dashboard",(req,res)=>{
+    console.log("hi");
+    const names = [ "Moin" , "Harshit" , "Lav" , "Ashutosh" , "Ayushi" ];
+    res.json(names);
 });
 
+
 server.listen(port,()=>{
-    console.log("Sever started");
+    console.log("Sever started on "+ port + "!");
 });
