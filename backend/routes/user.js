@@ -8,7 +8,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 app.use("/user", user);
 
 router.get("/dashboard",(req,res)=>{
-
+    
 });
 
 module.exports = router;
