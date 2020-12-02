@@ -21,38 +21,14 @@ passport.authenticate("google", { failureRedirect: "/dashboard" }),
             req.session.client = "user";
             res.redirect("/superuser/dashboard");
          }else{
-             Student.findOne({email:req.user.email},async (err,student)=>{
-                 if(student){
-                    req.session.client = "student";
-                    res.redirect("/student/dashboard");
-                }else{
-                    Teacher.findOne({email:req.user.email},async (err,teacher)=>{
-                        if(teacher){
-                            req.session.client = "teacher";
-                            res.redirect("/teacher/dashboard");
-                        }else{
-                            res.redirect("/");
-                        }
-                    });
-                }
-             });
+            
          }
-       })
+       });
 });
 
 router.get("/logout",async (req,res)=>{
     if(req.session.client==="student"){
         await Student.updateOne(
-            { email: req.user.email },
-            { $pull: { accessToken: { $in: [req.session.token] } } }
-        );
-    }else if(req.session.client==="teacher"){
-        await Teacher.updateOne(
-            { email: req.user.email },
-            { $pull: { accessToken: { $in: [req.session.token] } } }
-        );
-    }else if(req.session.client==="superuser"){
-        await SuperUser.updateOne(
             { email: req.user.email },
             { $pull: { accessToken: { $in: [req.session.token] } } }
         );

@@ -4,22 +4,23 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
-
+const student = require("./routes/user");
 const port = process.env.PORT||3001;
 const app = express();
 
 const server=http.createServer(app);
+
 app.use(express.json());
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 
+app.use("/user",user);
 
-app.get("/dashboard",(req,res)=>{
-    console.log("hi");
-    const names = [ "Moin" , "Harshit" , "Lav" , "Ashutosh" , "Ayushi" ];
-    res.json(names);
+app.get("/",(req,res)=>{
+   
 });
+
 
 
 server.listen(port,()=>{
