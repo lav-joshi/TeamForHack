@@ -17,7 +17,7 @@ passport.authenticate("google", { failureRedirect: "/" }),
       res.cookie("token",req.session.token);
       User.findOne({email:req.user.email},async (err,user)=>{
             if(user){
-                res.redirect("/dashboard");
+                res.redirect("/user/dashboard");
             }else{
                 res.redirect("/");
             }

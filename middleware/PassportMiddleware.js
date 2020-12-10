@@ -19,10 +19,17 @@ passport.use(new GoogleStrategy({
             await user.save();
             return done(err,user);
        }else if(!user){
-            User.create({googleId:profile.id},async (err,user)=>{
-                user.accessToken.push(accessToken);
-                await user.save();
-                return done(err,user);
+            const x = {
+              email: profile.emails[0].value,
+              displayPicture:profile.photos[0].value,
+              name:profile._json.name,
+              googleId:profile.id
+            }
+            User.create(x,async (err,newUser)=>{
+              console.log(newUser);
+                newUser.accessToken.push(accessToken);
+                await newUser.save();
+                return done(err,newUser);
             });
        }
     });  

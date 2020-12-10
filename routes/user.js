@@ -5,10 +5,9 @@ const moment = require("moment");
 const router = express.Router();
 
 router.use(bodyParser.urlencoded({ extended: true }));
-router.use("/user", User);
 
-router.get("/profile",(req,res)=>{
-    
+router.get("/dashboard",(req,res)=>{
+    res.render("dashboard");
 });
 
 module.exports = router;
