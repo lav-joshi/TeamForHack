@@ -1,0 +1,38 @@
+*{
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+body{
+  background-color: #F4F5F6;
+}
+nav{
+  background-color: #fff;
+  color: #e5e5e5 !important;
+  -webkit-box-shadow: 0px 2px 10px 0px rgba(14, 50, 50, 0.71);
+-moz-box-shadow:    0px 2px 10px 0px rgba(14, 50, 50, 0.71);
+box-shadow:         0px 2px 10px 0px rgba(14, 50, 50, 0.71);
+}
+nav .container a{
+  color: #525252 !important;
+
+}
+nav .container a:hover{
+  color: rgba(55, 111, 252 , 0.9) !important;
+  
+  background-color: #F4F5F6;
+}
+
+.dsh-details{
+  padding: 2%;
+  height: 400px;
+  width: 500px;
+  background-color: #fff;
+}

@@ -26,6 +26,7 @@ app.use(express.json());
 app.set("view engine", "ejs");
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
+app.use(express.static("./assets"));
 
 app.use(
     cookieSession({
