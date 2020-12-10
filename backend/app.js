@@ -16,12 +16,12 @@ app.use(methodOverride('_method'));
 
 
 app.get("/dashboard",(req,res)=>{
-    console.log("hi");
+    console.log("Dashboard view opened");
     const names = [ "Moin" , "Harshit" , "Lav" , "Ashutosh" , "Ayushi" ];
     res.json(names);
 });
 
 
 server.listen(port,()=>{
-    console.log("Sever started on "+ port + "!");
+    console.log("Backend Server started on "+ port + "!");
 });
