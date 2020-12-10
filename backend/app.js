@@ -4,7 +4,8 @@ const cookieParser = require("cookie-parser");
 const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
-const student = require("./routes/user");
+const user = require("./routes/user");
+const router = require("./routes/user");
 const port = process.env.PORT||3001;
 const app = express();
 
@@ -21,7 +22,9 @@ app.get("/",(req,res)=>{
    
 });
 
-
+router.post("/details",()=>{
+    
+});
 
 server.listen(port,()=>{
     console.log("Sever started on "+ port + "!");

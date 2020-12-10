@@ -12,14 +12,14 @@ router.get(
 );
 
 router.get("/google/callback",
-passport.authenticate("google", { failureRedirect: "/dashboard" }),
+passport.authenticate("google", { failureRedirect: "/" }),
     (req,res)=>{
        req.session.token=req.user.accessToken[req.user.accessToken.length - 1];
        res.cookie("token", req.session.token);
        User.findOne({email:req.user.email},async (err,user)=>{
          if(user){
             req.session.client = "user";
-            res.redirect("/superuser/dashboard");
+            res.redirect("/user/dashboard");
          }else{
             
          }
@@ -27,8 +27,8 @@ passport.authenticate("google", { failureRedirect: "/dashboard" }),
 });
 
 router.get("/logout",async (req,res)=>{
-    if(req.session.client==="student"){
-        await Student.updateOne(
+    if(req.session.client==="user"){
+        await User.updateOne(
             { email: req.user.email },
             { $pull: { accessToken: { $in: [req.session.token] } } }
         );
