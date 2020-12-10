@@ -20,9 +20,12 @@ const UserSchema = new mongoose.Schema({
       type:Number,
       trim:true
   },
-  skills:{
+  yourSkills:{
       type:[String]
+  },
+  requiredSkills:{
+    type:[String]
   }
 });
 
-module.exports = mongoose.model("student", StudentSchema);
+module.exports = mongoose.model("user", UserSchema);
