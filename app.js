@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 const user = require("./routes/user");
 const router = require("./routes/user");
-const port = process.env.PORT||3001;
+const port = process.env.PORT||3000;
 const app = express();
 const auth = require("./routes/auth");
 const User = require("./models/User");
@@ -29,11 +29,10 @@ require("./middleware/PassportMiddleware");
 app.use(passport.initialize());
 
 app.use(passport.session());
-
 router.post("/details",()=>{
     
 });
 
 server.listen(port,()=>{
-    console.log("Sever started on "+ port + "!");
+    console.log("Server started on "+ port + "!");
 });
