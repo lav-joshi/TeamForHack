@@ -3,8 +3,6 @@ const passport = require("passport");
 const User = require("../models/User");
 const router = express.Router();
 
-
-
 router.get(
     "/google",
     passport.authenticate("google", {

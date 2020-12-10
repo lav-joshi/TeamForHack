@@ -7,7 +7,7 @@ const User = require("../models/User");
 passport.use(new GoogleStrategy({
     clientID:     keys.clientID,
     clientSecret: keys.clientSecret,
-    callbackURL: "http://localhost:3001/auth/google/callback",
+    callbackURL: "http://localhost:3000/auth/google/callback",
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOne({ googleId: profile.id }, async (err, user)=> {
