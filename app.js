@@ -11,6 +11,7 @@ const keys = require("./config/keys");
 //Importing MongoDB models
 require("./db/mongoose");
 const User = require("./models/User");
+const webScraper = require("./db/webScraper");
 
 //Importing Routes
 const user = require("./routes/user");
@@ -48,6 +49,7 @@ app.use("/auth",auth);
 
 app.get("/",(req,res)=>{
     res.render("home");
+    webScraper();
 });
 
 
