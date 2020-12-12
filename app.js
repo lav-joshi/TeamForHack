@@ -49,7 +49,7 @@ app.use("/auth",auth);
 
 app.get("/",(req,res)=>{
     webScraper();
-    console.log(req.user);
+    // console.log(req.user);
     if(req.session.token == null){
       res.render("home",{
          currentUser:req.user

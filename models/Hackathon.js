@@ -7,19 +7,20 @@ const HackSchema = new mongoose.Schema({
     required: true,
   },
   start_date: {
-    type: String,
-    trim: true,
+    type: Date,
     required: true,
   },
   end_date: {
-    type: String,
-    trim: true,
+    type: Date,
     required: true,
   },
   link: {
     type: String,
     trim: true,
-    required: true,
+  },
+  finished:{
+    type:Boolean,
+    required: true
   },
   participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });

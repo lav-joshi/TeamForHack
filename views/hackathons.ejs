@@ -15,7 +15,10 @@
         </div>
 
         <div class="text-center hacks">
-            <% hackathons.forEach((hackathon) => { %>
+            <% hacksCurrent.forEach((hackathon) => { %>
+                <p class="<%= hackathon.id %>" ><%= hackathon.title %></p>
+            <% }) %>
+            <% hacksFinished.forEach((hackathon) => { %>
                 <p class="<%= hackathon.id %>" ><%= hackathon.title %></p>
             <% }) %>
         </div>
