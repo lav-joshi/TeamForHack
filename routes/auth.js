@@ -26,12 +26,10 @@ passport.authenticate("google", { failureRedirect: "/" }),
 );
 
 router.get("/logout",async (req,res)=>{
-    if(req.session.client==="user"){
-        await User.updateOne(
-            { email: req.user.email },
-            { $pull: { accessToken: { $in: [req.session.token] } } }
-        );
-    }
+    await User.updateOne(
+        { email: req.user.email },
+        { $pull: { accessToken: { $in: [req.session.token] } } }
+    );
     req.logout();
     req.session = null;
     req.token = null;
