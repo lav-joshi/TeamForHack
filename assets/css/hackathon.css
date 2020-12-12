@@ -1,0 +1,36 @@
+.hackathon-cont {
+  display: flex;
+  flex-direction: row;
+  overflow-y: hidden;
+}
+.hackathon-left {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hackathon-right {
+  width: calc(100% - 300px);
+  background-color: #08192d !important;
+}
+.back-crcle{
+  font-size: large;
+  color: #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #08192d;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+.underline{
+    height: 2px;
+    width: 80%;
+    background-color: #08192d;
+}
+.hacks{
+    overflow-y: scroll;
+    margin-top: 150px;
+}

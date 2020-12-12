@@ -1,7 +1,28 @@
 <%- include('partials/header'); -%>
-<%- include('sidenav'); -%>
-<div id="content" class="p-4 p-md-5 pt-5">
-    <h2 class="mb-4"> &nbsp;Hackathon</h2>
+<!-- <%- include('sidenav'); -%> -->
+<div id="content" class="hackathon-cont">
+    <div class="hackathon-left">
+        <div style="width: 300px;display: flex;
+        flex-direction: column;align-items: center; position: fixed;
+        background-color: #fafafa;" >
+            <div style="width: 100%;" >
+                <a href="/user/dashboard" class="ml-2 mt-2 back-crcle">
+                   <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+            </div> 
+           <h2 class="mb-1 text-center pt-3"> Hackathons</h2>
+           <span class="underline mb-4" style="width: 40%;" ></span>
+        </div>
+
+        <div class="text-center hacks">
+            <% hackathons.forEach((hackathon) => { %>
+                <p class="<%= hackathon.id %>" ><%= hackathon.title %></p>
+            <% }) %>
+        </div>
+    </div>
+    <div class="hackathon-right">
+        
+    </div>
     </div>
 </div>
 
