@@ -48,8 +48,20 @@ app.use("/user",user);
 app.use("/auth",auth);
 
 app.get("/",(req,res)=>{
-    res.render("home");
     webScraper();
+    console.log(req.user);
+    if(req.session.token == null){
+      res.render("home",{
+         currentUser:req.user
+      });
+    }else{
+      User.findOne({email:req.user.email},(err,user)=>{
+          if(err) Error(err);
+          if(user){
+            res.redirect("/user/dashboard");
+          }
+      });
+    }
 });
 
 
