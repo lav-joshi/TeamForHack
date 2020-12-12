@@ -35,6 +35,7 @@ router.get("/logout",async (req,res)=>{
     req.token = null;
     res.cookie("token", "");
     res.redirect("/");
-});
+    
+}); 
 
 module.exports = router;
