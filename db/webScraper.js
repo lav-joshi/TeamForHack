@@ -51,7 +51,7 @@ module.exports = ()=>{
                         });
                     } else { //add more hackathons
                         ObjArray.forEach((Obj)=>{
-                            Hackathons.find({title:Obj.title},(err,exist)=>{
+                            Hackathons.findOne({title:Obj.title},(err,exist)=>{
                                 if(err) console.err();
                                 if(exist) {}
                                 else {
