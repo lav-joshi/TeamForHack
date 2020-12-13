@@ -9,7 +9,17 @@ const Hackathon = require('../models/Hackathon');
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/dashboard', auth, (req, res) => {
-  res.render('dashboard', { currentUser: req.user });
+    User.findOne({id: req.user.id})
+    .populate({
+        path: 'currentHacks'
+    })
+    .exec((err,user)=>{
+        if(err) Error(err);
+        else {
+            console.log(user);
+            res.render('dashboard', { currentUser: user });
+        }
+    })
 });
 
 router.get('/hackathons', auth, (req, res) => {
@@ -18,6 +28,9 @@ router.get('/hackathons', auth, (req, res) => {
     Hackathon.find({finished:false})
     .sort({
         end_date: "asc"
+    })
+    .populate({
+        path:"participants"
     })
     .exec(async (err,hackathonsx)=>{
         if(err) Error(err);
@@ -35,7 +48,7 @@ router.get('/hackathons', auth, (req, res) => {
                     await hackathonsx.forEach((hackathon)=>{
                         hackathonsFinished.push(hackathon);
                     })
-                    res.render('hackathons',{ hacksFinished: hackathonsFinished, hacksCurrent: hackathonsCurrent});
+                    res.render('hackathons',{ hacksFinished: hackathonsFinished, hacksCurrent: hackathonsCurrent, user: req.user});
                 }
             })
         }
@@ -43,5 +56,58 @@ router.get('/hackathons', auth, (req, res) => {
     
     
 });
+router.post('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
+    Hackathon.findOne({_id: req.params.hackathonid},(err, hackathon)=>{
+        if(err) Error("Could not process fetch request "+ err);
+        else if(!hackathon) console.log("Hackathon id invalid");
+        else {
+            User.findOne({_id: req.params.userid},async (err, user)=>{
+                if(err) Error("Could not process fetch request "+ err);
+                else if(!user) console.log("User id invalid");
+                else {
+                    hackathon.participants.push(user);
+                    user.currentHacks.push(hackathon);
+                    
+                    await hackathon.save();
+                    await user.save();
+                    console.log("Participation added");
+                }
+            })
+        }
+    })
+})
+router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
+    Hackathon.findOne({_id: req.params.hackathonid})
+    .exec((err, hackathon)=>{
+        if(err) Error("Could not process fetch request "+ err);
+        else if(!hackathon) console.log("Hackathon id invalid");
+        else {
+            // console.log(hackathon.participants);
+            User.findOne({_id: req.params.userid},async (err, user)=>{
+                if(err) Error("Could not process fetch request "+ err);
+                else if(!user) console.log("User id invalid");
+                else {
+                    // console.log(userr);
+                    let flag = 1;
+                    for(let i=0;i<hackathon.participants.length;i++){ 
+                        if(hackathon.participants[i].toString() == user._id.toString()){
+                            hackathon.participants.splice(i,1);
+                            await hackathon.save();
+                            console.log("Participation Removed");
+                            flag = 0;
+                        }
+                    }
+                    for(let i=0;i<user.currentHacks.length;i++){ 
+                        if(user.currentHacks[i].toString() == hackathon._id.toString()){
+                            user.currentHacks.splice(i,1);
+                            await user.save();
+                        }
+                    }
+                    if(flag) console.log("User did not match");
+                }
+            })
+        }
+    })
+})
 
 module.exports = router;

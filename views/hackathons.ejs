@@ -1,6 +1,7 @@
 <%- include('partials/header'); -%>
 <!-- <%- include('sidenav'); -%> -->
 <div id="content" class="hackathon-cont">
+    <p hidden class="userid"><%= user._id %></p>
     <div class="hackathon-left">
         <div style="width: 300px;display: flex;
         flex-direction: column;align-items: center; position: fixed;
@@ -16,7 +17,7 @@
 
         <div class="text-center hacks">
             <% hacksCurrent.forEach((hackathon) => { %>
-                <p class="<%= hackathon.id %>" ><%= hackathon.title %></p>
+                <p class="<%= hackathon.id %>" style="color:black"><%= hackathon.title %></p>
             <% }) %>
             <% hacksFinished.forEach((hackathon) => { %>
                 <p class="<%= hackathon.id %>" ><%= hackathon.title %></p>
@@ -24,7 +25,12 @@
         </div>
     </div>
     <div class="hackathon-right">
-        
+        <input type="checkbox" onclick="takePart(this)"> Are you taking part in this hackathon? </button>
+        <% hacksCurrent.forEach((hackathon) => { %>
+            <% hackathon.participants.forEach((user) => { %>
+                <p ><%= user.name %></p>
+            <% }) %>
+        <% }) %>
     </div>
     </div>
 </div>
@@ -32,3 +38,21 @@
 
 
 <%- include('partials/footer'); -%>
+<script>
+    
+    function takePart(e){
+        console.log(document.querySelector('.userid').textContent.trim());
+        const uri = "http://localhost:3000/user/hackathons/insert/5fd522b43053250f20c2d36b/"+document.querySelector('.userid').textContent.trim();
+        console.log(uri);
+        if(e.checked){
+            fetch(uri, {
+                method: 'POST'
+            })
+        }
+        else {
+            fetch(uri, {
+                method: 'DELETE'
+            })
+        }
+    }
+</script>

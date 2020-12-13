@@ -25,4 +25,4 @@ const HackSchema = new mongoose.Schema({
   participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
-module.exports = mongoose.model("hack", HackSchema);
+module.exports = mongoose.model("Hack", HackSchema,);

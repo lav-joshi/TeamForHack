@@ -29,8 +29,14 @@ const UserSchema = new mongoose.Schema({
       type:[String]
   },
   currentHacks:{
-    type:[String]
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Hack" }]
+  },
+  github:{
+    type:String
+  },
+  linkedin:{
+    type:String
   }
 });
 
-module.exports = mongoose.model("user", UserSchema);
+module.exports = mongoose.model("User", UserSchema);
