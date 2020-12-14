@@ -28,39 +28,29 @@
             <% }) %>
         </div>
     </div>
-<<<<<<< HEAD
     <div class="hackathon-right">
         <% hacksCurrent.forEach((hackathon , i) => { %>
             <% if(i == 0){%>
-                <section class="<%=hackathon.id %> hackSections hackSectionsDisplay" >
-                <%}else{%>
-            <section class="<%=hackathon.id %> hackSections">
-                <%}%>
+                    <section class="<%=hackathon.id %> hackSections hackSectionsDisplay" >
+            <%}else{%>
+                    <section class="<%=hackathon.id %> hackSections">
+            <%}%>
                 <p> <%= hackathon.title %>
-                <input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want users to search you? 
-                </p>
-                <% hackathon.participants.forEach((user) => { %>
-                    <p ><%= user.name %></p>
-                <% }) %>
-            </section>
-=======
-    <div  class="hackathon-right">
-        <% hacksCurrent.forEach((hackathon) => { %>
-            <p> <%= hackathon.title %></p>
             <% let x = 0 %>
             <% hackathon.participants.forEach((userr)=>{ %>
                 <% if(userr._id == user._id){ x = 1 %>
-                    <p id="checkBox"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)" checked> Want users to search you?</p>
+                        <p id="checkBox"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)" checked> Want users to search you?</p>
+                    <% } %>
+                <% }) %>
+                <% if(x==0) { %>
+                    <p id="checkBox"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want users to search you?</p>
                 <% } %>
-            <% }) %>
-            <% if(x==0) { %>
-            <p id="checkBox"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want users to search you?</p>
-            <% } %>
-        
-            <% hackathon.participants.forEach((user) => { %>
-                <p ><%= user.name %></p>
-            <% }) %>
->>>>>>> 95c97935934d16ba9ac756cf983c342aaaf83c15
+            
+                <% hackathon.participants.forEach((user) => { %>
+                    <p ><%= user.name %></p>
+                <% }) %>
+                </p>
+            </section>
         <% }) %>
     </div>
     </div>
@@ -96,7 +86,6 @@
         if(prev.length >0){
             prev[0].classList.remove('activeHack');
         }
-<<<<<<< HEAD
         e.className += " activeHack"; 
         let newprev = document.getElementsByClassName("hackSections hackSectionsDisplay");
         if(newprev.length >0){
@@ -105,11 +94,6 @@
 
         let sec = document.getElementsByClassName(`${e.id} hackSections`);
         sec[0].className+=" hackSectionsDisplay";
-=======
-        e.className += " activeHack";
-
-        console.log(e.className) ;   
->>>>>>> 95c97935934d16ba9ac756cf983c342aaaf83c15
     }
     var hl = document.querySelector("hackathon-left");
 </script>
