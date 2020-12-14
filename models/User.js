@@ -7,6 +7,10 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: true
   },
+  bio: {
+    type: String,
+    trim: true
+  },
   googleId:{
      type:String,
      trim:true,
@@ -25,7 +29,7 @@ const UserSchema = new mongoose.Schema({
       type:Number,
       trim:true
   },
-  yourSkills:{
+  skills:{
       type:[String]
   },
   currentHacks:{

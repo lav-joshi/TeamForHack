@@ -22,6 +22,40 @@ router.get('/dashboard', auth, (req, res) => {
     })
 });
 
+router.post('/dashboard/editprofile/',auth,(req,res)=>{
+    User.findOne({id: req.user.id},async (err,user)=>{
+        if(err) Error(err);
+        user.contact = req.body.contact;
+        user.github = req.body.github;
+        user.linkedin = req.body.linkedin;
+        user.bio = req.body.bio;
+        await user.save();
+    })
+    res.redirect('/');
+})
+router.post('/dashboard/editprofile/addskill/',auth,(req,res)=>{
+    User.findOne({id: req.user.id},async(err,user)=>{
+        if(err) Error(err);
+        req.body.skills.split(",").forEach((skill)=>{
+            user.skills.push(skill);
+        })
+        await user.save();
+    })
+    res.redirect('/');
+})
+router.post('/dashboard/editprofile/del',auth,(req,res)=>{
+    User.findOne({id: req.user.id},async(err,user)=>{
+        if(err) Error(err);
+        user.skills.forEach((skill,i)=>{
+            if(skill == req.body.skill){
+                user.skills.splice(i,1);
+            }
+        })
+        await user.save();
+    })
+    res.redirect('/');
+})
+
 router.get('/hackathons', auth, (req, res) => {
     // const hackathonsFinished = [];
     const hackathonsCurrent = [];
