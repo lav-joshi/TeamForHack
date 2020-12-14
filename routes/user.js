@@ -16,7 +16,7 @@ router.get('/dashboard', auth, (req, res) => {
     .exec((err,user)=>{
         if(err) Error(err);
         else {
-            console.log(user);
+            // console.log(user);
             res.render('dashboard', { currentUser: user });
         }
     })
@@ -54,7 +54,6 @@ router.get('/hackathons', auth, (req, res) => {
         }
     })
     
-    
 });
 router.post('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
     Hackathon.findOne({_id: req.params.hackathonid},(err, hackathon)=>{
@@ -75,6 +74,7 @@ router.post('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
             })
         }
     })
+    res.send("OK");
 })
 router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
     Hackathon.findOne({_id: req.params.hackathonid})
@@ -92,7 +92,7 @@ router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
                     for(let i=0;i<hackathon.participants.length;i++){ 
                         if(hackathon.participants[i].toString() == user._id.toString()){
                             hackathon.participants.splice(i,1);
-                            await hackathon.save();
+                            
                             console.log("Participation Removed");
                             flag = 0;
                         }
@@ -100,14 +100,19 @@ router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
                     for(let i=0;i<user.currentHacks.length;i++){ 
                         if(user.currentHacks[i].toString() == hackathon._id.toString()){
                             user.currentHacks.splice(i,1);
-                            await user.save();
+                            
                         }
                     }
                     if(flag) console.log("User did not match");
+                    else {
+                        hackathon.save();
+                        user.save();
+                    }
                 }
             })
         }
     })
+    res.send("OK");
 })
 
 module.exports = router;
