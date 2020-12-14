@@ -121,18 +121,18 @@ color: #fff;
   overflow: hidden;
   width: 100%;
   text-align: center;
-  height:300px;
+  height:340px;
   border:none;
+  border-radius: 10px;
 }
 .profile-card-3 .background-block {
     float: left;
     width: 100%;
-    height: 200px;
+    height: 160px;
     overflow: hidden;
-    background: #34e89e;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to top, #0f3443, #34e89e);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to top, #0f3443, #34e89e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+    background: rgb(30,73,101);
+    background: linear-gradient(30deg, rgba(30,73,101,1) 0%, rgba(13,102,94,1) 97%);
+    background: -webkit-linear-gradient(30deg, rgba(30,73,101,1) 0%, rgba(13,102,94,1) 97%);
 }
 .profile-card-3 .background-block .background {
   height:100%;

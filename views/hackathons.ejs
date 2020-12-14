@@ -36,15 +36,15 @@
             <%}else{%>
                     <section class="<%=hackathon.id %> hackSections">
             <%}%>
-                <p> <%= hackathon.title %>
+                <p class="display-4 text-white"> <%= hackathon.title %></p>
             <% let x = 0 %>
             <% hackathon.participants.forEach((userr)=>{ %>
                 <% if(userr._id == user._id){ x = 1 %>
-                        <p id="checkBox"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)" checked> Want users to search you?</p>
+                        <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)" checked> Want to be on search list?</p>
                     <% } %>
                 <% }) %>
                 <% if(x==0) { %>
-                    <p id="checkBox"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want users to search you?</p>
+                    <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want to be on search list?</p>
                 <% } %>
             
                 <% hackathon.participants.forEach((user) => { %>
@@ -57,12 +57,14 @@
                                     <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
                                 </div>
                                 <div class="card-content">
-                                <h4> <%= user.name %> 
+                                <h4> <%= user.name %></h4>
+                                <div class="d-flex justify-content-around">
                                     <% user.yourSkills.forEach( (skill) =>{ %>
-                                        <small><%= skill %> </small>
+                                        <span class="badge badge-dark"> <%= skill %> </span>                                   
                                     <%})%>
-                                </h4>
-                                <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+                                </div>
+                                    <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+                                    <p><small><%= user.email %> </small></p>
                                 </div>
                             </div>
                         </div>
