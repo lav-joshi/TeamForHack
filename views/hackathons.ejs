@@ -7,7 +7,7 @@
         flex-direction: column;align-items: center; position: fixed;
         background-color: #fafafa; direction: ltr;" >
             <div style="width: 100%;" >
-                <a href="/user/dashboard" class="ml-2 mt-2 back-crcle">
+                <a href="/user/dashboard" class="ml-3 mt-3 back-crcle">
                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </a>
             </div> 
@@ -18,17 +18,18 @@
         <div class="text-center hacks">
             <% hacksCurrent.forEach((hackathon , i) => { %>
                 <% if(i == 0){ %>
-                <p id="<%= hackathon.id %>" class="hacknames activeHack" style="color:black" onclick="renderData(this)"><%= hackathon.title %></p>
+                    <p id="<%= hackathon.id %>" class="hacknames activeHack" style="color:black" onclick="renderData(this)"><%= hackathon.title %></p>
                 <% }else{ %>
-                <p id="<%= hackathon.id %>" class="hacknames" style="color:black" onclick="renderData(this)"><%= hackathon.title %></p>
+                    <% if(hackathon.finished !== true){%>
+                        <p id="<%= hackathon.id %>" class="hacknames" style="color:black" onclick="renderData(this)"><%= hackathon.title %></p>
+                    <% }else{%>
+                        <p id="<%= hackathon.id %>" class="hacknames" onclick="renderData(this)"><%= hackathon.title %></p>
+                    <%}%>
                 <%}%>    
-            <% }) %>
-            <% hacksFinished.forEach((hackathon) => { %>
-                <p id ="<%= hackathon.id %>"  class="hacknames" onclick="renderData(this)"><%= hackathon.title %></p>
             <% }) %>
         </div>
     </div>
-    <div class="hackathon-right">
+    <div class="hackathon-right p-3">
         <% hacksCurrent.forEach((hackathon , i) => { %>
             <% if(i == 0){%>
                     <section class="<%=hackathon.id %> hackSections hackSectionsDisplay" >
@@ -47,9 +48,27 @@
                 <% } %>
             
                 <% hackathon.participants.forEach((user) => { %>
-                    <p ><%= user.name %></p>
+                    <div class="row p-3">
+                        <div class="col-md-4 mb-4">
+                            <div class="card profile-card-3">
+                                <div class="background-block">
+                                    </div>
+                                <div class="profile-thumb-block">
+                                    <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
+                                </div>
+                                <div class="card-content">
+                                <h4> <%= user.name %> 
+                                    <% user.yourSkills.forEach( (skill) =>{ %>
+                                        <small><%= skill %> </small>
+                                    <%})%>
+                                </h4>
+                                <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <% }) %>
-                </p>
+                
             </section>
         <% }) %>
     </div>

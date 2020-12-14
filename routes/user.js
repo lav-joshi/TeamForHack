@@ -23,7 +23,7 @@ router.get('/dashboard', auth, (req, res) => {
 });
 
 router.get('/hackathons', auth, (req, res) => {
-    const hackathonsFinished = [];
+    // const hackathonsFinished = [];
     const hackathonsCurrent = [];
     Hackathon.find({finished:false})
     .sort({
@@ -46,9 +46,9 @@ router.get('/hackathons', auth, (req, res) => {
                 if(err) Error(err);
                 else{
                     await hackathonsx.forEach((hackathon)=>{
-                        hackathonsFinished.push(hackathon);
+                        hackathonsCurrent.push(hackathon);
                     })
-                    res.render('hackathons',{ hacksFinished: hackathonsFinished, hacksCurrent: hackathonsCurrent, user: req.user});
+                    res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: req.user});
                 }
             })
         }
