@@ -52,18 +52,19 @@
                         <div class="col-md-4 mb-4">
                             <div class="card profile-card-3">
                                 <div class="background-block">
+                                    <p class="text-white p-2 " style="font-size: x-large;" ><%= user.bio %></p>
                                     </div>
                                 <div class="profile-thumb-block">
                                     <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
                                 </div>
                                 <div class="card-content">
                                 <h4> <%= user.name %></h4>
-                                <div class="d-flex justify-content-around">
-                                    <% user.yourSkills.forEach( (skill) =>{ %>
-                                        <span class="badge badge-dark"> <%= skill %> </span>                                   
+                                <div class="d-flex justify-content-around badges-group">
+                                    <% user.skills.forEach( (skill) =>{ %>
+                                        <span class="badge badge-dark p-1 mb-1"> <%= skill %> </span>                                   
                                     <%})%>
                                 </div>
-                                    <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
+                                    <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
                                     <p><small><%= user.email %> </small></p>
                                 </div>
                             </div>

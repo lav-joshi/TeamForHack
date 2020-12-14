@@ -39,7 +39,7 @@ router.post('/dashboard/editprofile/addskill/',auth,(req,res)=>{
         req.body.skills.split(",").forEach((skill)=>{
             user.skills.push(skill);
         })
-        await user.save();
+        await user.save(); 
     })
     res.redirect('/');
 })
@@ -76,13 +76,18 @@ router.get('/hackathons', auth, (req, res) => {
             .sort({
                 end_date: "desc"
             })
+            .populate({
+                path:"participants"
+            })
             .exec(async (err,hackathonsx)=>{
                 if(err) Error(err);
                 else{
                     await hackathonsx.forEach((hackathon)=>{
                         hackathonsCurrent.push(hackathon);
                     })
+                    console.log(req.user);
                     res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: req.user});
+
                 }
             })
         }

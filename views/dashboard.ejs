@@ -31,11 +31,13 @@
             </div>
         </form>
         <p>Skills</p>
-        <% currentUser.skills.forEach((skill)=>{ %>
-            <form action="dashboard/editprofile/del" method="POST" autocomplete="off"> 
-                <p><%=skill %> <button type="submit" name="skill" value="<%=skill %>"></button></p>
-            </form>
-        <% }) %>
+        <div class="d-flex justify-content-start badges-group">
+            <% currentUser.skills.forEach((skill)=>{ %>
+                <form action="dashboard/editprofile/del" method="POST" autocomplete="off"> 
+                    <button class="btn mb-2 mr-2" type="submit" name="skill" value="<%=skill %>"><%=skill %>&nbsp;<span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+                </form>
+            <% }) %>
+        </div>
         <form action="dashboard/editprofile/addskill" method="POST" autocomplete="off"> 
             <div class="form-group">
                 <input type="text" class="form-control" name="skills" placeholder="Add Skill">
