@@ -1,9 +1,50 @@
 <%- include('partials/header'); -%>
 <%- include('sidenav'); -%>
+
 <div id="content" class="p-4 p-md-5 pt-5">
-    <h2 class="mb-4"> &nbsp;Dashboard</h2>
-    </div>
+    <section id="dashboard">
+            <h2 class="mb-4"> &nbsp;Dashboard</h2>
+    </section>
+
+    <section id="editprofile"> 
+        <form action="dashboard/editprofile/" method="POST" autocomplete="off"> 
+            <div class="form-group col-md-2">
+                <label>Contact</label>
+                <input type="text" class="form-control" name="contact" placeholder="Contact Number" value="<%= currentUser.contact %>">
+            </div>
+            <div class="form-group col-md-12">
+                <label>Bio</label>
+                <input type="text" class="form-control" name="bio" placeholder="" value="<%= currentUser.bio %>">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Linkedin</label>
+                    <input type="text" class="form-control" name="linkedin" placeholder="" value="<%= currentUser.linkedin %>">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Github</label>
+                    <input type="text" class="form-control" name="github" placeholder="" value="<%= currentUser.github %>"> 
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info">Save Changes</button>
+            </div>
+        </form>
+        <p>Skills</p>
+        <% currentUser.skills.forEach((skill)=>{ %>
+            <form action="dashboard/editprofile/del" method="POST" autocomplete="off"> 
+                <p><%=skill %> <button type="submit" name="skill" value="<%=skill %>"></button></p>
+            </form>
+        <% }) %>
+        <form action="dashboard/editprofile/addskill" method="POST" autocomplete="off"> 
+            <div class="form-group">
+                <input type="text" class="form-control" name="skills" placeholder="Add Skill">
+                <button type="submit" class="btn btn-info">Save Changes</button>
+            </div>
+        </form>
+    </section>
 </div>
+
 
 
 

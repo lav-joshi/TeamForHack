@@ -50,6 +50,12 @@ module.exports = ()=>{
                             }
                         });
                     } else { //add more hackathons
+                        hackathons.forEach(async(hackathon)=>{
+                            if(Date.now() - new Date(hackathon.end_date) > 0){
+                                hackathon.finished = 1;
+                            } else hackathon.finished = 0;
+                            await hackathon.save();
+                        })
                         ObjArray.forEach((Obj)=>{
                             Hackathons.findOne({title:Obj.title},(err,exist)=>{
                                 if(err) console.err();
@@ -62,6 +68,7 @@ module.exports = ()=>{
                                             console.log("A New Hackathon added in DB");
                                         }
                                     });
+
                                 }
                             })
                         })
