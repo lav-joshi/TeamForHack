@@ -2,10 +2,10 @@
 <!-- <%- include('sidenav'); -%> -->
 <div id="content" class="hackathon-cont">
     <p hidden class="userid"><%= user._id %></p>
-    <div class="hackathon-left">
+    <div class="hackathon-left" style="direction: rtl;">
         <div style="width: 300px;display: flex;
         flex-direction: column;align-items: center; position: fixed;
-        background-color: #fafafa;" >
+        background-color: #fafafa; direction: ltr;" >
             <div style="width: 100%;" >
                 <a href="/user/dashboard" class="ml-2 mt-2 back-crcle">
                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
@@ -17,16 +17,18 @@
 
         <div class="text-center hacks">
             <% hacksCurrent.forEach((hackathon) => { %>
-                <p class="<%= hackathon.id %>" style="color:black"><%= hackathon.title %></p>
+                <p id="<%= hackathon.id %>" class="hacknames" style="color:black" onclick="renderData(this)"><%= hackathon.title %></p>
             <% }) %>
             <% hacksFinished.forEach((hackathon) => { %>
-                <p class="<%= hackathon.id %>" ><%= hackathon.title %></p>
+                <p id ="<%= hackathon.id %>"  class="hacknames" onclick="renderData(this)"><%= hackathon.title %></p>
             <% }) %>
         </div>
     </div>
     <div class="hackathon-right">
-        <input type="checkbox" onclick="takePart(this)"> Are you taking part in this hackathon? </button>
         <% hacksCurrent.forEach((hackathon) => { %>
+            <p> <%= hackathon.title %>
+            <input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want users to search you? 
+            </p>
             <% hackathon.participants.forEach((user) => { %>
                 <p ><%= user.name %></p>
             <% }) %>
@@ -42,7 +44,7 @@
     
     function takePart(e){
         console.log(document.querySelector('.userid').textContent.trim());
-        const uri = "http://localhost:3000/user/hackathons/insert/5fd522b43053250f20c2d36b/"+document.querySelector('.userid').textContent.trim();
+        const uri = "http://localhost:3000/user/hackathons/insert/"+ e.id +"/"+document.querySelector('.userid').textContent.trim();
         console.log(uri);
         if(e.checked){
             fetch(uri, {
@@ -55,4 +57,14 @@
             })
         }
     }
+    function renderData(e){
+        let prev = document.getElementsByClassName("hacknames activeHack");
+        if(prev.length >0){
+            prev[0].classList.remove('activeHack');
+            console.log("YES");
+        }
+        e.className += " activeHack";
+        console.log(e.className) ;   
+    }
+    var hl = document.querySelector("hackathon-left");
 </script>

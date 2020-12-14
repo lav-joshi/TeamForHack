@@ -2,7 +2,8 @@
 .hackathon-cont {
   display: flex;
   flex-direction: row;
-  overflow-y: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 .hackathon-left {
   width: 300px;
@@ -78,4 +79,15 @@
 }
 .soc-icons i{
   margin: 10px;
+}
+.hacknames{
+  cursor: pointer;
+}
+.hacknames:hover{
+  border-bottom: 1px solid #08192d;
+  border-top: 1px solid #08192d;
+}
+.activeHack{
+  background-color: #08192d;
+  color: #Fff !important;
 }
