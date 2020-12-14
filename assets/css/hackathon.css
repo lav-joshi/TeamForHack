@@ -44,7 +44,7 @@
   margin-top:-100px ;
 }
 .mn p{
-  color: #FC0254 !important; font-size: 27px;font-family: 'Raleway', sans-serif;
+  color: #FFF !important; font-size: 27px;font-family: 'Raleway', sans-serif;
 }
 .usp{
   display: flex;
@@ -90,4 +90,14 @@
 .activeHack{
   background-color: #08192d;
   color: #Fff !important;
+}
+.hackSections{
+  display: none;
+  width: 100%;
+  height: 100vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+.hackSectionsDisplay{
+  display: block;
 }
