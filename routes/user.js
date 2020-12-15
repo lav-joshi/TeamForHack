@@ -9,7 +9,7 @@ const Hackathon = require('../models/Hackathon');
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/dashboard', auth, (req, res) => {
-    User.findOne({id: req.user.id})
+    User.findOne({_id: req.user._id})
     .populate({
         path: 'currentHacks'
     })
@@ -23,7 +23,7 @@ router.get('/dashboard', auth, (req, res) => {
 });
 
 router.post('/dashboard/editprofile/',auth,(req,res)=>{
-    User.findOne({id: req.user.id},async (err,user)=>{
+    User.findOne({_id: req.user._id},async (err,user)=>{
         if(err) Error(err);
         user.contact = req.body.contact;
         user.github = req.body.github;
@@ -34,7 +34,7 @@ router.post('/dashboard/editprofile/',auth,(req,res)=>{
     res.redirect('/');
 })
 router.post('/dashboard/editprofile/addskill/',auth,(req,res)=>{
-    User.findOne({id: req.user.id},async(err,user)=>{
+    User.findOne({_id: req.user._id},async(err,user)=>{
         if(err) Error(err);
         req.body.skills.split(",").forEach((skill)=>{
             user.skills.push(skill);
@@ -44,7 +44,7 @@ router.post('/dashboard/editprofile/addskill/',auth,(req,res)=>{
     res.redirect('/');
 })
 router.post('/dashboard/editprofile/del',auth,(req,res)=>{
-    User.findOne({id: req.user.id},async(err,user)=>{
+    User.findOne({_id: req.user._id},async(err,user)=>{
         if(err) Error(err);
         user.skills.forEach((skill,i)=>{
             if(skill == req.body.skill){
