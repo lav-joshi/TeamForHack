@@ -40,7 +40,26 @@ const UserSchema = new mongoose.Schema({
   },
   linkedin:{
     type:String
-  }
+  },
+  room:{
+    type:String
+  },
+  friends:[{
+      name:{
+        type:String,
+        trim:true,
+        required:true
+      },
+      email:{
+        type:String,
+        trim:true,
+        required:true
+      },
+      chats:[{
+        time:String,
+        message:String,
+      }]
+  }]
 });
 
 module.exports = mongoose.model("User", UserSchema);

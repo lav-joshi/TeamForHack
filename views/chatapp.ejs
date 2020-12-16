@@ -1,0 +1,58 @@
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w==" crossorigin="anonymous"></script>
+<div>
+  <h2>Hello</h2>
+  <div>
+    <div class="chat-messages">
+
+    </div>
+    <form id="chat-form">
+        <input type="text" placeholder="Write message" id="msg">
+        <button>Send</button>
+    </form>
+  </div>
+</div>
+
+<script>
+
+  const {username,room} = Qs.parse(location.search,{
+   ignoreQueryPrefix:true
+  });
+
+   
+  const chatForm  = document.getElementById('chat-form');
+
+  const socket = io("/");
+
+
+  // Join chat room 
+  socket.emit('joinRoom',{username,room});
+  
+  //Message from server
+  socket.on('message',message=>{
+      console.log("message");
+      outputMessage(message); 
+  });
+
+  chatForm.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const msg = e.target.elements.msg.value;
+
+    //emit message to server
+    socket.emit('chatMessage',msg);
+
+    //clear inputs
+    e.target.elements.msg.value='';
+    e.target.elements.msg.focus();
+  });
+
+
+function outputMessage(message){
+  const div =  document.createElement('div');
+  div .innerHTML = `<p>${message.username}
+    <span>${message.time}</span>
+    </p>
+     <p> ${message.text} </p>`;
+  document.querySelector('.chat-messages').appendChild(div); 
+} 
+</script>

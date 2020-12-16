@@ -152,6 +152,11 @@ router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
         }
     })
     res.send("OK");
-})
+});
+
+
+router.get("/chat",auth,(req,res)=>{
+    res.render("chatapp",{currentUser:req.user});
+});
 
 module.exports = router;
