@@ -9,6 +9,7 @@
     <section class="dsh-sec editProfile"> 
         <h2 class="mb-4"> &nbsp;Edit Profile</h2>
         <form action="dashboard/editprofile/" method="POST" autocomplete="off"> 
+            <div class="form-row">
             <div class="form-group col-md-2">
                 <label>Contact</label>
                 <input type="text" class="form-control" name="contact" placeholder="Contact Number" value="<%= currentUser.contact %>">
@@ -17,14 +18,21 @@
                 <label>Bio</label>
                 <input type="text" class="form-control" name="bio" placeholder="" value="<%= currentUser.bio %>">
             </div>
-            <div class="form-row">
                 <div class="form-group col-md-4">
                     <label>Linkedin</label>
                     <input type="text" class="form-control" name="linkedin" placeholder="" value="<%= currentUser.linkedin %>">
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Github</label>
-                    <input type="text" class="form-control" name="github" placeholder="" value="<%= currentUser.github %>"> 
+                    <label>Github</label> 
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                        <div class="input-group mb-2">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">@</div>
+                          </div>
+                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Username" name="github" value="<%= currentUser.github %>">
+                        </div>
+                      </div>
                 </div>
             </div>
             <div class="form-group">
@@ -48,7 +56,71 @@
     </section>
     <section class="dsh-sec suggestion">
         <h2 class="mb-4"> &nbsp;Suggestions</h2>
-
+        <div class="text-dark ">
+            <p class="text-center w-responsive">Do you have any suggestions/feedback?</p>
+            <p class="text-center w-responsive mx-auto mb-5"> Feel free to contact us. Our team is dedicated in making this platform more user friendly. Any other questions are welcome as well.</p>
+        
+            <div class="row">
+                <div class="col-md-9 mb-md-0 mb-5">
+                    <form id="contact-form" name="contact-form" action="mail.php" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="md-form mb-2">
+                                    <label for="name" class="">Your name</label>
+                                    <input type="text" id="name" name="name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form mb-2">
+                                    <label for="email" class="">Your email</label>
+                                    <input type="text" id="email" name="email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-2">
+                                    <label for="subject" class="">Subject</label>
+                                    <input type="text" id="subject" name="subject" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+        
+                                <div class="md-form">
+                                    <label for="message">Your message</label>
+                                    <textarea type="text" id="message" name="message" rows="10" class="form-control md-textarea" style="height: 150px !important;" ></textarea>
+                                </div>
+        
+                            </div>
+                        </div>
+        
+                        <div class="text-center text-md-left mt-4">
+                            <button type="submit" class="btn btn-primary">Send</a>
+                        </div>
+                    </form>
+        
+                    <div class="status"></div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <ul class="list-unstyled mb-2">
+                        <li><i class="fa fa-map-marker mt-4"  ></i>
+                            <p> IIIT Lucknow , India </p>
+                        </li>
+        
+                        <li><i class="fa fa-phone mt-4"></i>
+                            <p>+91 XXXXXXXXXX</p>
+                        </li>
+        
+                        <li><i class="fa fa-envelope mt-4"></i>
+                            <p>teamXYZ@gmail.com</p>
+                        </li>
+                    </ul>
+                </div>
+        
+            </div>
+        </div>
     </section>
 </div>
 

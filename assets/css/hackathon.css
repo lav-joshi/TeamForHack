@@ -222,3 +222,6 @@ color: #fff;
 .dsh-display{
   display: block;
 }
+.form-control{
+  border: 1px solid #23232321 !important;
+}
