@@ -58,6 +58,7 @@
                                     <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
                                 </div>
                                 <div class="card-content">
+                                <button id="<%=user._id%>"onclick="addfriend(this)">Add as friend</button>
                                 <h4> <%= user.name %></h4>
                                 <div class="d-flex justify-content-around badges-group">
                                     <% user.skills.forEach( (skill) =>{ %>
@@ -118,4 +119,13 @@
         sec[0].className+=" hackSectionsDisplay";
     }
     var hl = document.querySelector("hackathon-left");
+</script>
+
+<script>
+  addfriend = (e) =>{
+     fetch(`/friend/chat/addfriend/${e.id}`)
+     .then((data)=>{
+        
+     });
+  }
 </script>

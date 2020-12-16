@@ -42,6 +42,9 @@ const UserSchema = new mongoose.Schema({
     type:String
   },
   friends:[{
+      friend_id:{
+         type:String
+      },
       name:{
         type:String,
         trim:true,

@@ -1,29 +1,39 @@
+<%- include('partials/header'); -%>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w==" crossorigin="anonymous"></script>
 <div>
   <h2>Hello</h2>
-
+  <div id=""></div>
   <div id="">
      <%currentUser.friends.forEach((friend)=>{%>
         <div>
           <div><%=friend.name%></div>
           <div><%=friend.email%></div>
+          <div id="room_id"><%=friend.friend_id%></div>
         <div>
-        <button></button>
+        <button class="<%=friend.friend_id%>" onclick="make(this)"> Click </button>
+
+        <div>
+          <div class="chat-messages">
+              
+          </div>
+          <form id="chat-form" class="<%=friend.friend_id%>">
+              <input type="text" placeholder="Write message" id="msg">
+              <button>Send</button>
+          </form>
+        </div>
      <%})%>
   </div>
-  <div id="room_id"><%=currentUser._id%></div>
-  <div>
-    <div class="chat-messages">
-        
-    </div>
-    <form id="chat-form">
-        <input type="text" placeholder="Write message" id="msg">
-        <button>Send</button>
-    </form>
-  </div>
+  
 </div>
 
+
+<script>
+   make =(e) =>{
+      fetch('/friend/get/messages/')
+   }
+</script>
 <script>
 
   const {username,room} = Qs.parse(location.search,{
@@ -44,16 +54,15 @@
   
   //Message from server
   socket.on('message',message=>{
-      console.log("message");
       outputMessage(message); 
   });
 
   chatForm.addEventListener('submit',(e)=>{
     e.preventDefault();
     const msg = e.target.elements.msg.value;
-
+     let z = e.target.className;
     //emit message to server
-    socket.emit('chatMessage',msg);
+    socket.emit('chatMessage',{msg,z});
 
     //clear inputs
     e.target.elements.msg.value='';
@@ -70,3 +79,5 @@ function outputMessage(message){
   document.querySelector('.chat-messages').appendChild(div); 
 } 
 </script>
+<%- include('partials/footer'); -%>
+

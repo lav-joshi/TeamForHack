@@ -16,8 +16,8 @@ const webScraper = require("./db/webScraper");
 
 //Importing Routes
 const user = require("./routes/user");
-const router = require("./routes/user");
 const auth = require("./routes/auth");
+const friend = require("./routes/friend");
 
 //Variables
 const port = process.env.PORT||3000;
@@ -50,6 +50,7 @@ app.use(passport.session());
 
 app.use("/user",user);
 app.use("/auth",auth);
+app.use("/friend",friend);
 
 app.get("/",(req,res)=>{
     webScraper();
@@ -78,16 +79,17 @@ io.on('connection',(socket)=>{
   socket.on('joinRoom',({room_id})=>{
 
     socket.join(room_id);
+    console.log("Room Joined");
     // Welcome currentUser
     // socket.emit("message",formatMessage('Chat BOT',"Welcomr to ChatCord"));
 
     //Broadcast when a user connects
-    socket.broadcast.to().emit('message',formatMessage('Chat BOT',"User joined"));
+    // socket.broadcast.to().emit('message',formatMessage('Chat BOT',"User joined"));
   });
   
   // Listen for chat message
-  socket.on('chatMessage',(msg)=>{
-    io.emit('message',formatMessage('USER',msg));
+  socket.on('chatMessage',({msg,friend_id})=>{
+    io.to(friend_id).emit('message',formatMessage('USER',msg));
   });
 
   socket.on('disconnect',()=>{
