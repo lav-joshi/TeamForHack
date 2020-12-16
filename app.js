@@ -9,7 +9,6 @@ const passport = require("passport");
 const keys = require("./config/keys");
 const socketio = require("socket.io");
 const formatMessage = require('./utils/messages');
-let x;
 //Importing MongoDB models
 require("./db/mongoose");
 const User = require("./models/User");
@@ -22,7 +21,6 @@ const auth = require("./routes/auth");
 
 //Variables
 const port = process.env.PORT||3000;
-
 
 const app = express();
 const server=http.createServer(app);
@@ -64,8 +62,6 @@ app.get("/",(req,res)=>{
       User.findOne({email:req.user.email},(err,user)=>{
           if(err) Error(err);
           if(user){
-            x=req.user;
-            console.log(x);
             res.redirect("/user/dashboard");
           }
       });
@@ -79,11 +75,11 @@ io.on('connection',(socket)=>{
   
   console.log("New Web Socket Connection");
    
-  socket.on('joinRoom',({username,room})=>{
+  socket.on('joinRoom',({room_id})=>{
 
-    socket.join('');
-      //Welcome currentUser
-    socket.emit("message",formatMessage('Chat BOT',"Welcomr to ChatCord"));
+    socket.join(room_id);
+    // Welcome currentUser
+    // socket.emit("message",formatMessage('Chat BOT',"Welcomr to ChatCord"));
 
     //Broadcast when a user connects
     socket.broadcast.to().emit('message',formatMessage('Chat BOT',"User joined"));

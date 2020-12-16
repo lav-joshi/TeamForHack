@@ -41,9 +41,6 @@ const UserSchema = new mongoose.Schema({
   linkedin:{
     type:String
   },
-  room:{
-    type:String
-  },
   friends:[{
       name:{
         type:String,
