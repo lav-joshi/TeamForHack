@@ -1,12 +1,13 @@
 <%- include('partials/header'); -%>
 <%- include('sidenav'); -%>
 
-<div id="content" class="p-4 p-md-5 pt-5">
-    <section id="dashboard">
+<div id="content" class="p-4 p-md-5 pt-5" style="overflow-y: scroll;">
+    <section class="dsh-sec dsh dsh-display">
             <h2 class="mb-4"> &nbsp;Dashboard</h2>
     </section>
 
-    <section id="editprofile"> 
+    <section class="dsh-sec editProfile"> 
+        <h2 class="mb-4"> &nbsp;Edit Profile</h2>
         <form action="dashboard/editprofile/" method="POST" autocomplete="off"> 
             <div class="form-group col-md-2">
                 <label>Contact</label>
@@ -34,7 +35,7 @@
         <div class="d-flex justify-content-start badges-group">
             <% currentUser.skills.forEach((skill)=>{ %>
                 <form action="dashboard/editprofile/del" method="POST" autocomplete="off"> 
-                    <button class="btn mb-2 mr-2" type="submit" name="skill" value="<%=skill %>"><%=skill %>&nbsp;<span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+                    <button class="btn mb-2 mr-2" style="background-color: #e8e8e8; " type="submit" name="skill" value="<%=skill %>"><%=skill %>&nbsp;<span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
                 </form>
             <% }) %>
         </div>
@@ -45,8 +46,28 @@
             </div>
         </form>
     </section>
+    <section class="dsh-sec suggestion">
+        <h2 class="mb-4"> &nbsp;Suggestions</h2>
+
+    </section>
 </div>
 
+
+<script>
+    function dshChange(e){
+        let targ =  e.className;
+        targ = targ.slice(0 , targ.length -1);
+        let dshSecs = document.querySelectorAll('.dsh-sec');
+        dshSecs.forEach(sec => {
+            if(sec.classList.length == 3){
+                sec.classList.remove("dsh-display");
+            }
+            if( sec.className == 'dsh-sec ' + targ){
+                sec.classList.add("dsh-display");
+            }
+        })    
+    }
+</script>
 
 
 
