@@ -79,7 +79,7 @@ function outputMessage(message){
     <span>${message.time}</span>
     </p>
      <p> ${message.text} </p>`;
-  document.querySelector('.chat-messages').appendChild(div); 
+  $(`form#${message.friend_id}`).append(div); 
 } 
 </script>
 
