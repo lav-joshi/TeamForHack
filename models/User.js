@@ -54,11 +54,14 @@ const UserSchema = new mongoose.Schema({
         type:String,
         trim:true,
         required:true
-      },
-      chats:[{
-        time:String,
-        message:String,
-      }]
+      }
+      ,
+      chats:[
+      //   {
+      //   time:String,
+      //   message:String,
+      // }
+    ]
   }]
 });
 

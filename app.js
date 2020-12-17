@@ -83,8 +83,39 @@ io.on('connection',(socket)=>{
   
   // Listen for chat message
   socket.on('chatMessage',({msg,friend_id,user_id})=>{
-    io.to(user_id).emit('message',formatMessage(user_id,msg,friend_id));
-    io.to(friend_id).emit('message',formatMessage(user_id,msg,user_id));
+
+    User.findOne({_id:user_id},async(user)=>{
+      User.findOne({_id:friend_id},async (friend)=>{
+           
+            // user.friends.forEach(async (x,i)=>{
+            //     if(x.friend_id==friend_id){
+            //        user.friends[i].chats.push({
+            //          userid,
+            //          friend_id,
+            //          msg,
+            //          time:moment().format('h:mm a')
+            //        });
+            //        await user.save();
+            //     }
+            // });
+
+            // friend.friends.forEach(async(y,i)=>{
+            //   if(y.friend_id==friend_id){
+            //     friend.friends[i].chats.push({
+            //       userid,
+            //       friend_id,
+            //       msg,
+            //       time:moment().format('h:mm a')
+            //     });
+            //     await friend.save();
+            //   }
+            // });
+
+            io.to(user_id).emit('message',formatMessage(user_id,msg,friend_id));
+            io.to(friend_id).emit('message',formatMessage(user_id,msg,user_id));
+      });
+
+    });
   });
 
   // socket.on('disconnect',()=>{
