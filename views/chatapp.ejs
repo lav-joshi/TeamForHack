@@ -18,7 +18,7 @@
           <div class="chat-messages">
               
           </div>
-          <form id="chat-form" class="<%=friend.friend_id%>">
+          <form class="chat-form" id="<%=friend.friend_id%>">
               <input type="text" placeholder="Write message" id="msg">
               <button>Send</button>
           </form>
@@ -41,7 +41,7 @@
   });
 
    
-  const chatForm  = document.getElementById('chat-form');
+  const chatForm  = document.getElementsByClassName('chat-form');
   const room_id = document.getElementById('room_id');
   const socket = io("/");
   window.onload = function() {
@@ -57,18 +57,20 @@
       outputMessage(message); 
   });
 
-  chatForm.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const msg = e.target.elements.msg.value;
-     let z = e.target.className;
-    //emit message to server
-    socket.emit('chatMessage',{msg,z});
+  for(let i=0;i<chatForm.length;i++){
+    chatForm[i].addEventListener('submit',(e)=>{
+      e.preventDefault();
+      const msg = e.target.elements.msg.value;
+      let z = e.target.id;
+      console.log({msg,z});
+      //emit message to server
+      socket.emit('chatMessage',{msg,z});
 
-    //clear inputs
-    e.target.elements.msg.value='';
-    e.target.elements.msg.focus();
-  });
-
+      //clear inputs
+      e.target.elements.msg.value='';
+      e.target.elements.msg.focus();
+    });
+  }
 
 function outputMessage(message){
   const div =  document.createElement('div');
