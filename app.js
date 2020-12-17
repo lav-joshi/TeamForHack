@@ -83,8 +83,8 @@ io.on('connection',(socket)=>{
   
   // Listen for chat message
   socket.on('chatMessage',({msg,friend_id,user_id})=>{
-    io.to(user_id).emit('message',formatMessage('USER',msg,friend_id));
-    io.to(friend_id).emit('message',formatMessage('USER',msg,friend_id));
+    io.to(user_id).emit('message',formatMessage(user_id,msg,friend_id));
+    io.to(friend_id).emit('message',formatMessage(user_id,msg,user_id));
   });
 
   // socket.on('disconnect',()=>{
