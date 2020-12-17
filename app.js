@@ -9,6 +9,7 @@ const passport = require("passport");
 const keys = require("./config/keys");
 const socketio = require("socket.io");
 const formatMessage = require('./utils/messages');
+const moment  = require("moment");
 //Importing MongoDB models
 require("./db/mongoose");
 const User = require("./models/User");
@@ -84,37 +85,38 @@ io.on('connection',(socket)=>{
   // Listen for chat message
   socket.on('chatMessage',({msg,friend_id,user_id})=>{
 
-    User.findOne({_id:user_id},async(user)=>{
-      User.findOne({_id:friend_id},async (friend)=>{
-           
-            // user.friends.forEach(async (x,i)=>{
-            //     if(x.friend_id==friend_id){
-            //        user.friends[i].chats.push({
-            //          userid,
-            //          friend_id,
-            //          msg,
-            //          time:moment().format('h:mm a')
-            //        });
-            //        await user.save();
-            //     }
-            // });
+    User.findOne({_id:user_id},async(err,user)=>{
+      User.findOne({_id:friend_id},async (err,friend)=>{
 
-            // friend.friends.forEach(async(y,i)=>{
-            //   if(y.friend_id==friend_id){
-            //     friend.friends[i].chats.push({
-            //       userid,
-            //       friend_id,
-            //       msg,
-            //       time:moment().format('h:mm a')
-            //     });
-            //     await friend.save();
-            //   }
-            // });
+            user.friends.forEach(async (x,i)=>{
+                if(x.friend_id==friend_id){
+                   user.friends[i].chats.push({
+                     //sender
+                     user_id,
+                     //receiver
+                     friend_id,
+                     msg,
+                     time:moment().format('h:mm a')
+                   });
+                   await user.save();
+                }
+            });
+
+            friend.friends.forEach(async(y,i)=>{
+              if(y.friend_id==user_id){
+                friend.friends[i].chats.push({
+                  user_id,
+                  friend_id,
+                  msg,
+                  time:moment().format('h:mm a')
+                });
+                await friend.save();
+              }
+            });
 
             io.to(user_id).emit('message',formatMessage(user_id,msg,friend_id));
             io.to(friend_id).emit('message',formatMessage(user_id,msg,user_id));
       });
-
     });
   });
 

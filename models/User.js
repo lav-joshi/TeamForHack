@@ -56,12 +56,7 @@ const UserSchema = new mongoose.Schema({
         required:true
       }
       ,
-      chats:[
-      //   {
-      //   time:String,
-      //   message:String,
-      // }
-    ]
+      chats:[Object]
   }]
 });
 
