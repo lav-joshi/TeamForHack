@@ -104,7 +104,7 @@ router.post('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
                 else if(!user) console.log("User id invalid");
                 else {
                     hackathon.participants.push(user);
-                    user.currentHacks.push(hackathon);
+                    user.currentHacks.push(hackathon);  
                     
                     await hackathon.save();
                     await user.save();
