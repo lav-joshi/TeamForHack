@@ -1,7 +1,6 @@
 <%- include('partials/header'); -%>
 <!-- <%- include('sidenav'); -%> -->
 <div id="content" class="hackathon-cont">
-    <a href="/friend/chat">Go to chats</a>
     <p hidden class="userid"><%= user._id %></p>
     <div class="hackathon-left" style="direction: rtl;">
         <div style="width: 300px;display: flex;
@@ -31,6 +30,7 @@
         </div>
     </div>
     <div class="hackathon-right p-3">
+        <a href="/friend/chat" style="color: white;">Go to chats</a>
         <% hacksCurrent.forEach((hackathon , i) => { %>
             <% if(i == 0){%>
                     <section class="<%=hackathon.id %> hackSections hackSectionsDisplay" >
@@ -48,26 +48,28 @@
                     <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want to be on search list?</p>
                 <% } %>
             
-                <% hackathon.participants.forEach((user) => { %>
-                    <div class="row p-3">
+                <% hackathon.participants.forEach((userr) => { %>
+                    <div class="row p-3 <%= userr._id %>">
                         <div class="col-md-4 mb-4">
                             <div class="card profile-card-3">
                                 <div class="background-block">
-                                    <p class="text-white p-2 " style="font-size: x-large;" ><%= user.bio %></p>
+                                    <p class="text-white p-2 " style="font-size: x-large;" ><%= userr.bio %></p>
                                     </div>
                                 <div class="profile-thumb-block">
-                                    <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
+                                    <img src="<%= userr.displayPicture %>" alt="profile-image" class="profile"/>
                                 </div>
                                 <div class="card-content">
-                                <button id="<%=user._id%>"onclick="addfriend(this)">Add as friend</button>
-                                <h4> <%= user.name %></h4>
+                                <% if(user._id != userr.id) { %> 
+                                    <button class="btn btn-info btn-sm" id="<%=userr._id%>"onclick="addfriend(this)">Add as friend</button>
+                                <% } %>
+                                <h4> <%= userr.name %></h4>
                                 <div class="d-flex justify-content-around badges-group">
                                     <% user.skills.forEach( (skill) =>{ %>
                                         <span class="badge badge-dark p-1 mb-1"> <%= skill %> </span>                                   
                                     <%})%>
                                 </div>
                                     <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
-                                    <p><small><%= user.email %> </small></p>
+                                    <p><small><%= userr.email %> </small></p>
                                 </div>
                             </div>
                         </div>
@@ -85,15 +87,38 @@
 <%- include('partials/footer'); -%>
 <script>
     function takePart(e){
-        console.log(document.querySelector('.userid').textContent.trim());
-        const uri = "http://localhost:3000/user/hackathons/insert/"+ e.id +"/"+document.querySelector('.userid').textContent.trim();
+        const userid = document.querySelector('.userid').textContent.trim();
+        const uri = "http://localhost:3000/user/hackathons/insert/"+ e.id +"/"+userid;
         console.log(uri);
         if(e.checked){
             fetch(uri, {
                 method: 'POST'
             })
             .then(()=>{
-
+                const add = `<div class="row p-3 ${userid}">
+                        <div class="col-md-4 mb-4">
+                            <div class="card profile-card-3">
+                                <div class="background-block">
+                                    <p class="text-white p-2 " style="font-size: x-large;" ><%= user.bio %></p>
+                                    </div>
+                                <div class="profile-thumb-block">
+                                    <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
+                                </div>
+                                <div class="card-content">
+                                <h4> <%= user.name %></h4>
+                                <div class="d-flex justify-content-around badges-group">
+                                    <% user.skills.forEach( (skill) =>{ %>
+                                        <span class="badge badge-dark p-1 mb-1"> <%= skill %> </span>                                   
+                                    <%})%>
+                                </div>
+                                    <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
+                                    <p><small><%= user.email %> </small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                    console.log('section.'+e.id)
+                    $('section.'+e.id+'.hackSections.hackSectionsDisplay').append(add);
             })
         }
         else {
@@ -101,7 +126,7 @@
                 method: 'DELETE'
             })
             .then(()=>{
-
+                $(`.row.p-3.${userid}`).remove();
             })
         }
     }
