@@ -216,3 +216,12 @@ color: #fff;
   display: flex;
   flex-wrap: wrap;
 }
+.dsh-sec{
+  display: none;
+}
+.dsh-display{
+  display: block;
+}
+.form-control{
+  border: 1px solid #23232321 !important;
+}

@@ -18,7 +18,7 @@
           <div class="chat-messages">
               
           </div>
-          <form id="chat-form" class="<%=friend.friend_id%>">
+          <form class="chat-form" id="<%=friend.friend_id%>">
               <input type="text" placeholder="Write message" id="msg">
               <button>Send</button>
           </form>
@@ -36,15 +36,16 @@
 </script>
 <script>
 
-  const {username,room} = Qs.parse(location.search,{
-   ignoreQueryPrefix:true
-  });
+  // const {username,room} = Qs.parse(location.search,{
+  //  ignoreQueryPrefix:true
+  // });
 
    
-  const chatForm  = document.getElementById('chat-form');
+  const chatForm  = document.getElementsByClassName('chat-form');
   const user = document.getElementById('user_id');
   let user_id ;
   const socket = io("/");
+
   window.onload = function() {
     user_id = user.textContent;
     socket.emit('joinRoom',{user_id});
@@ -56,18 +57,20 @@
       outputMessage(message); 
   });
 
-  chatForm.addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const msg = e.target.elements.msg.value;
-    //emit message to server
-    let friend_id = e.target.className;
-    socket.emit('chatMessage',{msg,friend_id,user_id});
+  for(let i=0;i<chatForm.length;i++){
+      chatForm[i].addEventListener('submit',(e)=>{
+        e.preventDefault();
+        const msg = e.target.elements.msg.value;
+        //emit message to server
+        let friend_id = e.target.id;
+        socket.emit('chatMessage',{msg,friend_id,user_id});
 
-    //clear inputs
-    e.target.elements.msg.value='';
-    e.target.elements.msg.focus();
-  });
-
+        //clear inputs
+        e.target.elements.msg.value='';
+        e.target.elements.msg.focus();
+      });
+    }
+   
 
 function outputMessage(message){
   console.log(message);
@@ -79,5 +82,7 @@ function outputMessage(message){
   document.querySelector('.chat-messages').appendChild(div); 
 } 
 </script>
+
+
 <%- include('partials/footer'); -%>
 
