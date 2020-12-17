@@ -72,31 +72,24 @@ app.get("/",(req,res)=>{
 
 
 io.on('connection',(socket)=>{
-  console.log("hi");
   
   console.log("New Web Socket Connection");
    
-  socket.on('joinRoom',({room_id})=>{
-
-    socket.join(room_id);
-    console.log("Room Joined");
-    // Welcome currentUser
-    // socket.emit("message",formatMessage('Chat BOT',"Welcomr to ChatCord"));
-
-    //Broadcast when a user connects
-    // socket.broadcast.to().emit('message',formatMessage('Chat BOT',"User joined"));
-  });
+  // Runs when user joins room 
+    socket.on('joinRoom',({user_id})=>{
+      socket.join(user_id);
+      console.log("Room Joined");
+    });
   
   // Listen for chat message
-  socket.on('chatMessage',({msg,friend_id})=>{
-    io.to(friend_id).emit('message',formatMessage('USER',msg));
+  socket.on('chatMessage',({msg,friend_id,user_id})=>{
+    io.to(user_id).emit('message',formatMessage('USER',msg,friend_id));
+    io.to(friend_id).emit('message',formatMessage('USER',msg,friend_id));
   });
 
-  socket.on('disconnect',()=>{
-    io.emit('message',formatMessage('Chat BOT',"User Disconnected"))
-  });
-
-
+  // socket.on('disconnect',()=>{
+  //   io.emit('message',formatMessage('Chat BOT',"User Disconnected"))
+  // });
 })
 
 
