@@ -28,10 +28,17 @@
           </div>
           <div class="msg-box d-flex flex-column justify-content-end" >
               <div class="chat-messages <%=friend.friend_id%>">
+                <% friend.chats.forEach((chat)=>{ %>
+                  <% if(chat.user_id == currentUser._id ){ %>
+                    <div class="d-flex flex-column align-items-end" style="width: 100%;" > <span> <%= chat.msg %></span><span><%= chat.time %></span> </div>
+                  <% } else { %>
+                    <div class="d-flex flex-column" style="width: 100%;" > <span> <%= chat.msg %></span><span><%= chat.time %></span> </div>
+                  <% } %>
+                <% }) %>
               </div>
           </div>
           <form class="chat-form text-center d-flex flex-row justify-content-around p-1" id="<%=friend.friend_id%>">
-            <input class="form-control" type="text" placeholder="Write message" id="msg">
+            <input class="form-control" type="text" placeholder="Write message" id="msg" autocomplete="OFF">
             <button class="btn btn-primary" >Send</button>
           </form>
           <%})%>
@@ -85,17 +92,17 @@
    
 
 function outputMessage(message){
-  console.log(message)
+  // console.log(message)
   const div =  document.createElement('div');
   let notMine = '';
   const userId = document.getElementById('user_id');
-  console.log(userId.textContent.trim())
+  // console.log(userId.textContent.trim())
   if(message.user_id == userId.textContent.trim()){
-    console.log("YES NOtme")
+    // console.log("YES NOtme")
     notMine= "align-items-end";
   }
-  div .innerHTML = `
-  <div class="d-flex flex-column ${notMine}" style="width: 100%;" > <span> ${message.text}</span><span>${message.time}</span> </div>
+  div.innerHTML = `
+    <div class="d-flex flex-column ${notMine}" style="width: 100%;" > <span> ${message.text}</span><span>${message.time}</span> </div>
     `;
   let frndClss =  document.getElementsByClassName(`chat-messages ${message.friend_id}`);
   console.log(frndClss);
