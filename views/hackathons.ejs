@@ -64,9 +64,9 @@
                                     <button class="btn btn-info btn-sm" id="<%=userr._id%>"onclick="addfriend(this)">Add as friend</button>
                                 <% } %>
                                 <h4> <%= userr.name %></h4>
-                                <div class="d-flex justify-content-around badges-group">
+                                <div class="d-flex justify-content-start text-center badges-group">
                                     <% user.skills.forEach( (skill) =>{ %>
-                                        <span class="badge badge-dark p-1 mb-1"> <%= skill %> </span>                                   
+                                        <span class="badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
                                     <%})%>
                                 </div>
                                     <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
