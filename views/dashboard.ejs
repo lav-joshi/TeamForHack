@@ -154,6 +154,8 @@
         let targ =  e.className;
         targ = targ.slice(0 , targ.length -1);
         let dshSecs = document.querySelectorAll('.dsh-sec');
+        let activeLi = document.querySelectorAll('.components li');
+        console.log(activeLi);
         dshSecs.forEach(sec => {
             if(sec.classList.length == 3){
                 sec.classList.remove("dsh-display");
