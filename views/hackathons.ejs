@@ -13,9 +13,11 @@
             </div> 
            <h2 class="mb-1 text-center pt-3"> Hackathons</h2>
            <span class="underline mb-4" style="width: 40%;" ></span>
+           <input type="text" id="filtered-hackathon" onkeyup="myFunction()" width="80%" placeholder="Search for Hackathons">
+
         </div>
 
-        <div class="text-center hacks">
+        <div class="text-center hacks" style="margin-top: 200px;">
             <% hacksCurrent.forEach((hackathon , i) => { %>
                 <% if(i == 0){ %>
                     <p id="<%= hackathon.id %>" class="hacknames activeHack" style="color:black" onclick="renderData(this)"><%= hackathon.title %></p>
@@ -160,4 +162,22 @@ addfriend = (e) =>{
         }
     }).catch(err => console.error(err));
 }
+
 </script>
+
+
+<script>
+    function myFunction() {
+      var input, filter;
+      input = document.getElementById('filtered-hackathon');
+      filter = input.value.toUpperCase();
+      const hacknames = document.getElementsByClassName('hacknames');
+      for(let i = 0; i < hacknames.length; i++) {
+          if(hacknames[i].textContent.toUpperCase().indexOf(filter) != -1) {
+            hacknames[i].style.display = '';
+        } 
+        else
+        hacknames[i].style.display = 'none';
+      }
+    }
+    </script>

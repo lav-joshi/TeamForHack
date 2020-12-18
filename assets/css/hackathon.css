@@ -273,3 +273,7 @@ color: #fff;
 .chat-form input{
   width: 92%;
 }
+#filtered-hackathon {
+  width: 85%;
+  padding: 5px;
+}
