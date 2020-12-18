@@ -3,7 +3,11 @@
 
 
 <div id="content" class="p-4 p-md-5 pt-5" style="overflow-y: scroll;">
-    <section class="dsh-sec dsh dsh-display">
+    <% if(query.section){ %>
+        <section class="dsh-sec dsh">
+    <% } else {%>
+        <section class="dsh-sec dsh dsh-display">
+    <%}%>
             <h2 class="mb-4"> &nbsp;Dashboard</h2>
             <div class="row p-3 <%= currentUser._id %>">
                 <div class="col-md-4 mb-4">
@@ -28,8 +32,11 @@
                 </div>
             </div>
     </section>
-
-    <section class="dsh-sec editProfile"> 
+    <% if(query.section){ %>
+        <section class="dsh-sec editProfile dsh-display"> 
+    <% } else {%>
+        <section class="dsh-sec editProfile">
+    <%}%>
         <h2 class="mb-4"> &nbsp;Edit Profile</h2>
         <form action="dashboard/editprofile/" method="POST" autocomplete="off"> 
             <div class="form-row">

@@ -16,8 +16,8 @@ router.get('/dashboard', auth, (req, res) => {
     .exec((err,user)=>{
         if(err) Error(err);
         else {
-            // console.log(user);
-            res.render('dashboard', { currentUser: user });
+            // console.log(req.query);
+            res.render('dashboard', { currentUser: user, query:req.query});
         }
     })
 });
@@ -30,8 +30,8 @@ router.post('/dashboard/editprofile/',auth,(req,res)=>{
         user.linkedin = req.body.linkedin;
         user.bio = req.body.bio;
         await user.save();
+        res.redirect('/user/dashboard?section=editProfile');
     })
-    res.redirect('/');
 })
 router.post('/dashboard/editprofile/addskill/',auth,(req,res)=>{
     User.findOne({_id: req.user._id},async(err,user)=>{
@@ -40,8 +40,8 @@ router.post('/dashboard/editprofile/addskill/',auth,(req,res)=>{
             user.skills.push(skill);
         })
         await user.save(); 
+        res.redirect('/user/dashboard?section=editProfile');
     })
-    res.redirect('/');
 })
 router.post('/dashboard/editprofile/del',auth,(req,res)=>{
     User.findOne({_id: req.user._id},async(err,user)=>{
@@ -52,8 +52,8 @@ router.post('/dashboard/editprofile/del',auth,(req,res)=>{
             }
         })
         await user.save();
+        res.redirect('/user/dashboard?section=editProfile');
     })
-    res.redirect('/');
 })
 
 router.get('/hackathons', auth, (req, res) => {
