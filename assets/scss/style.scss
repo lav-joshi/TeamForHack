@@ -253,3 +253,88 @@ a[data-toggle="collapse"] {
 		background: lighten($primary,5%);
 	}
 }
+
+svg.intro {
+	background: linear-gradient(135deg, #aa3bb1, #582a7e);
+	max-width: 800px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-shadow: 0 30px 50px -20px rgb(46, 6, 66);
+	
+	.text { 
+	  display: none;
+	}
+	&.go {
+	  .text {
+		font-family: Arial, sans-serif;
+		font-size: 20px;
+		text-transform: uppercase;
+		display: block;
+	  }
+	  .text-stroke {
+		fill: none;
+		stroke: #51256f;
+		stroke-width: 2.8px;
+		stroke-dashoffset: -900;
+		stroke-dasharray: 900;
+		stroke-linecap: butt;
+		stroke-linejoin: round;
+		animation: dash 2.5s ease-in-out forwards;
+	  }
+	  .text-stroke:nth-child(2) {
+		animation-delay: .3s;
+	  }
+	  .text-stroke:nth-child(3) {
+		animation-delay: .9s;
+	  }
+	  .text-stroke-2 {
+		stroke: #f6bdfa;
+		animation-delay: 1.2s;
+	  }
+	  .text-stroke:nth-child(5) {
+		animation-delay: 1.5s;
+	  }
+	  .text-stroke:nth-child(6) {
+		animation-delay: 1.8s;
+	  }
+	}
+  }
+  
+  @keyframes dash {
+	100% {
+	  stroke-dashoffset: 0;
+	}
+  }
+  
+  .reload {
+	position: absolute;
+	bottom: 15px;
+	right: 15px;
+	background: #fff;
+	border: none;
+	border-radius: 20px;
+	outline: none!important;
+	font-size: 11px;
+	line-height: 1.5;
+	padding: 8px 12px;
+	text-transform: uppercase;
+	z-index: 10;
+	cursor: pointer;
+	box-shadow: 0 6px 7px #350e4c;
+	transition: all .1s cubic-bezier(.67, .13, .1, .81);
+	&:hover {
+	  box-shadow: 0 4px 4px #350e4c;
+	  transform: translateY(1px);
+	}
+	&:active {
+	  box-shadow: 0 1px 2px #244B94;
+	  transform: translateY(2px);
+	}
+	svg {
+	  vertical-align: middle;
+	  position: relative;
+	  top: -2px;
+	}
+  }
