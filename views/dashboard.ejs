@@ -3,7 +3,6 @@
 
 
 <div id="content" class="p-4 p-md-5 pt-5" style="overflow-y: scroll;">
-    <a href="/friend/chat">Go to chats</a>
     <section class="dsh-sec dsh dsh-display">
             <h2 class="mb-4"> &nbsp;Dashboard</h2>
             <div class="row p-3 <%= currentUser._id %>">
@@ -154,6 +153,8 @@
         let targ =  e.className;
         targ = targ.slice(0 , targ.length -1);
         let dshSecs = document.querySelectorAll('.dsh-sec');
+        let activeLi = document.querySelectorAll('.components li');
+        console.log(activeLi);
         dshSecs.forEach(sec => {
             if(sec.classList.length == 3){
                 sec.classList.remove("dsh-display");

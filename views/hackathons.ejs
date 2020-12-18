@@ -13,9 +13,11 @@
             </div> 
            <h2 class="mb-1 text-center pt-3"> Hackathons</h2>
            <span class="underline mb-4" style="width: 40%;" ></span>
+           <input type="text" id="filtered-hackathon" onkeyup="myFunction()" width="80%" placeholder="Search for Hackathons">
+
         </div>
 
-        <div class="text-center hacks">
+        <div class="text-center hacks" style="margin-top: 200px;">
             <% hacksCurrent.forEach((hackathon , i) => { %>
                 <% if(i == 0){ %>
                     <p id="<%= hackathon.id %>" class="hacknames activeHack" style="color:black" onclick="renderData(this)"><%= hackathon.title %></p>
@@ -30,7 +32,6 @@
         </div>
     </div>
     <div class="hackathon-right p-3">
-        <a href="/friend/chat" style="color: white;">Go to chats</a>
         <% hacksCurrent.forEach((hackathon , i) => { %>
             <% if(i == 0){%>
                     <section class="<%=hackathon.id %> hackSections hackSectionsDisplay" >
@@ -48,9 +49,9 @@
                     <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want to be on search list?</p>
                 <% } %>
             
+                <div class="row p-3 <%=hackathon.id %>">
                 <% hackathon.participants.forEach((userr) => { %>
-                    <div class="row p-3 <%= userr._id %>">
-                        <div class="col-md-4 mb-4">
+                        <div class="col-md-4 mb-4 <%= userr._id %>">
                             <div class="card profile-card-3">
                                 <div class="background-block">
                                     <p class="text-white p-2 " style="font-size: x-large;" ><%= userr.bio %></p>
@@ -63,9 +64,9 @@
                                     <button class="btn btn-info btn-sm" id="<%=userr._id%>"onclick="addfriend(this)">Add as friend</button>
                                 <% } %>
                                 <h4> <%= userr.name %></h4>
-                                <div class="d-flex justify-content-around badges-group">
+                                <div class="d-flex justify-content-start text-center badges-group">
                                     <% user.skills.forEach( (skill) =>{ %>
-                                        <span class="badge badge-dark p-1 mb-1"> <%= skill %> </span>                                   
+                                        <span class="badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
                                     <%})%>
                                 </div>
                                     <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
@@ -73,8 +74,8 @@
                                 </div>
                             </div>
                         </div>
+                        <% }) %>
                     </div>
-                <% }) %>
                 
             </section>
         <% }) %>
@@ -95,8 +96,7 @@
                 method: 'POST'
             })
             .then(()=>{
-                const add = `<div class="row p-3 ${userid}">
-                        <div class="col-md-4 mb-4">
+                const add = `<div class="col-md-4 mb-4 ${userid}">
                             <div class="card profile-card-3">
                                 <div class="background-block">
                                     <p class="text-white p-2 " style="font-size: x-large;" ><%= user.bio %></p>
@@ -115,10 +115,9 @@
                                     <p><small><%= user.email %> </small></p>
                                 </div>
                             </div>
-                        </div>
-                    </div>`
+                        </div>`
                     console.log('section.'+e.id)
-                    $('section.'+e.id+'.hackSections.hackSectionsDisplay').append(add);
+                    $('.row.p-3.'+e.id).append(add);
             })
         }
         else {
@@ -126,7 +125,7 @@
                 method: 'DELETE'
             })
             .then(()=>{
-                $(`.row.p-3.${userid}`).remove();
+                $(`.col-md-4.mb-4.${userid}`).remove();
             })
         }
     }
@@ -160,4 +159,22 @@ addfriend = (e) =>{
         }
     }).catch(err => console.error(err));
 }
+
 </script>
+
+
+<script>
+    function myFunction() {
+      var input, filter;
+      input = document.getElementById('filtered-hackathon');
+      filter = input.value.toUpperCase();
+      const hacknames = document.getElementsByClassName('hacknames');
+      for(let i = 0; i < hacknames.length; i++) {
+          if(hacknames[i].textContent.toUpperCase().indexOf(filter) != -1) {
+            hacknames[i].style.display = '';
+        } 
+        else
+        hacknames[i].style.display = 'none';
+      }
+    }
+    </script>
