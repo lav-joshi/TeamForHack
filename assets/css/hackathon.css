@@ -92,6 +92,7 @@ color: #fff;
   border-top: 1px solid #fafafa;
   padding-top: 3px;
   padding-bottom: 3px;
+  width: 285px !important;
 }
 .hacknames:hover{
   border-bottom: 1px solid #08192d;
