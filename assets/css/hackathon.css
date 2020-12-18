@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Stylish&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 .hackathon-cont {
   display: flex;
   flex-direction: row;
@@ -272,4 +274,42 @@ color: #fff;
 }
 .chat-form input{
   width: 92%;
+}
+.heading
+{
+ 
+  display: flex;
+  flex-direction: column;
+}
+.head-primary
+{
+  margin-top:-4px;
+}
+.head-primary
+{
+  font-size:3rem;
+  line-height:45px;
+  font-family: 'Philosopher', sans-serif;
+  margin-left:27px;
+}
+.head-primary p
+{
+  color:#08192d;
+  width:700px;
+}
+.head-secondary
+{
+  display: flex;
+  flex-direction: column;
+}
+.head-secondary span
+{
+  color:#FC0254;
+  font-family: 'Poppins', sans-serif;
+  font-size:20px;
+}
+.head-secondary p
+{
+  font-family: 'Poppins', sans-serif;
+  width:10000px;
 }
