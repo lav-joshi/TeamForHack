@@ -148,10 +148,16 @@
 </script>
 
 <script>
-  addfriend = (e) =>{
-     fetch(`/friend/chat/addfriend/${e.id}`)
-     .then((data)=>{
-        
-     });
-  }
+addfriend = (e) =>{
+    fetch(`/friend/chat/addfriend/${e.id}`)
+    .then(response => {
+        if(response.ok) {
+            return response.json();
+        }
+    }).then(data => {
+        if(data) {
+            alert(data.res);
+        }
+    }).catch(err => console.error(err));
+}
 </script>

@@ -85,7 +85,7 @@ router.get('/hackathons', auth, (req, res) => {
                     await hackathonsx.forEach((hackathon)=>{
                         hackathonsCurrent.push(hackathon);
                     })
-                    console.log(req.user);
+                    // console.log(req.user);
                     res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: req.user});
 
                 }
