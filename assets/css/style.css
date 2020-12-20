@@ -8334,3 +8334,6 @@ a[data-toggle="collapse"] {
   .components li a{
     cursor: pointer;
   }
+  .brandSvg{
+    width: 50px !important;
+  }

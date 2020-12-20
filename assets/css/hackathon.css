@@ -124,14 +124,16 @@ color: #fff;
   overflow: hidden;
   width: 100%;
   text-align: center;
-  height:340px;
+  height:fit-content;
+  max-height: 350px;
+  min-width: 300px;
   border:none;
   border-radius: 10px;
 }
 .profile-card-3 .background-block {
     float: left;
     width: 100%;
-    height: 160px;
+    height: 160px !important;
     overflow: hidden;
     background: rgb(30,73,101);
     background: linear-gradient(30deg, rgba(30,73,101,1) 0%, rgba(13,102,94,1) 97%);
@@ -165,7 +167,7 @@ color: #fff;
     bottom: 51px;
     position: absolute;
     z-index: -1;
-    transform: rotate(-13deg);
+    transform: rotate(-12deg);
 }
 .profile-card-3 .profile {
   border-radius: 50%;
@@ -178,6 +180,11 @@ color: #fff;
   border: 2px solid rgba(255, 255, 255, 1);
   -webkit-transform: translate(-50%, 0%);
   transform: translate(-50%, 0%);
+  z-index:99999;
+}
+.profile-card-3 .hackProf {
+  -webkit-transform: translate(-50%, -25%);
+  transform: translate(-50%, -25%);
   z-index:99999;
 }
 .profile-card-3 h2 {
@@ -354,4 +361,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
          -o-transform:skew(8deg) rotate(3deg);
             transform:skew(8deg) rotate(3deg);
 }
-
+.sidnavLogo{
+  width: 100% !important;
+}
+.sidnavLogo img{
+  width: 40%;
+}

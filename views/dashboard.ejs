@@ -10,8 +10,8 @@
     <%}%>
             <h2 class="mb-4"> &nbsp;Dashboard</h2>
             <div class="row p-3 <%= currentUser._id %>">
-                <div class="col-md-4 mb-4">
-                    <div class="card profile-card-3">
+                <div class="col-md-5 mb-4">
+                    <div class="card profile-card-3 shadowEff">
                         <div class="background-block">
                             <p class="text-white p-2 " style="font-size: x-large;" ><%= currentUser.bio %></p>
                             </div>
@@ -97,13 +97,13 @@
                             <div class="col-md-6">
                                 <div class="md-form mb-2">
                                     <label for="name" class="">Your name</label>
-                                    <input type="text" id="name" name="name" class="form-control">
+                                    <input type="text" id="name" name="name" value="<%= currentUser.name %>" class="form-control" disabled>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="md-form mb-2">
                                     <label for="email" class="">Your email</label>
-                                    <input type="text" id="email" name="email" class="form-control">
+                                    <input type="text" id="email" name="email" value="<%= currentUser.email %>" class="form-control" disabled>
                                 </div>
                             </div>
                         </div>

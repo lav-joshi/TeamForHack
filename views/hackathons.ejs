@@ -52,12 +52,12 @@
                 <div class="row p-3 <%=hackathon.id %>">
                 <% hackathon.participants.forEach((userr) => { %>
                         <div class="col-md-4 mb-4 <%= userr._id %>">
-                            <div class="card profile-card-3">
+                            <div class="card profile-card-3 shadowEff">
                                 <div class="background-block">
                                     <p class="text-white p-2 " style="font-size: x-large;" ><%= userr.bio %></p>
                                     </div>
                                 <div class="profile-thumb-block">
-                                    <img src="<%= userr.displayPicture %>" alt="profile-image" class="profile"/>
+                                    <img src="<%= userr.displayPicture %>" alt="profile-image" class="profile hackProf"/>
                                 </div>
                                 <div class="card-content">
                                 <% if(user._id != userr.id) { %> 
