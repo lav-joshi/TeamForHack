@@ -13,7 +13,7 @@
             </div> 
            <h2 class="mb-1 text-center pt-3"> Hackathons</h2>
            <span class="underline mb-4" style="width: 40%;" ></span>
-           <input type="text" id="filtered-hackathon" onkeyup="myFunction()" width="80%" placeholder="Search for Hackathons">
+           <input type="text" id="filtered-hackathon" onkeyup="filterHacks()" width="80%" placeholder="Search for Hackathons">
 
         </div>
 
@@ -27,35 +27,35 @@
                     <% }else{%>
                         <p id="<%= hackathon.id %>" class="hacknames" onclick="renderData(this)"><%= hackathon.title %></p>
                     <%}%>
-                <%}%>    
+                <%}%>
             <% }) %>
         </div>
     </div>
     <div class="hackathon-right p-3">
+        <input type="text" id="filtered-users" onkeyup="filterUsers()"  placeholder="Search Skills to filter Users">
         <% hacksCurrent.forEach((hackathon , i) => { %>
             <% if(i == 0){%>
                     <section class="<%=hackathon.id %> hackSections hackSectionsDisplay" >
             <%}else{%>
                     <section class="<%=hackathon.id %> hackSections">
             <%}%>
-                <p class="display-4 text-white"> <%= hackathon.title %></p>
+                <p class="display-4 text-white" style="font-size: 30px;"> <%= hackathon.title %></p>
             <% let x = 0 %>
-            <% hackathon.participants.forEach((userr)=>{ %>
-                <% if(userr._id == user._id){ x = 1 %>
-                        <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)" checked> Want to be on search list?</p>
-                    <% } %>
-                <% }) %>
-                <% if(x==0) { %>
-                    <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want to be on search list?</p>
+            <% user.currentHacks.forEach((hack)=>{ %>
+                <% if(String(hack._id) == String(hackathon._id)){  x = 1 %>
+                    <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)" checked> Want to be on search list?</p>
                 <% } %>
-            
+            <% }) %>
+            <% if(x==0) { %>
+                <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)"> Want to be on search list?</p>
+            <% } %>
                 <div class="row p-3 <%=hackathon.id %>">
                 <% hackathon.participants.forEach((userr) => { %>
-                        <div class="col-md-4 mb-4 <%= userr._id %>">
+                        <div class="user-card col-md-4 mb-4 <%= userr._id %>">
                             <div class="card profile-card-3">
                                 <div class="background-block">
                                     <p class="text-white p-2 " style="font-size: x-large;" ><%= userr.bio %></p>
-                                    </div>
+                                </div>
                                 <div class="profile-thumb-block">
                                     <img src="<%= userr.displayPicture %>" alt="profile-image" class="profile"/>
                                 </div>
@@ -64,9 +64,9 @@
                                     <button class="btn btn-info btn-sm" id="<%=userr._id%>"onclick="addfriend(this)">Add as friend</button>
                                 <% } %>
                                 <h4> <%= userr.name %></h4>
-                                <div class="d-flex justify-content-start text-center badges-group">
-                                    <% user.skills.forEach( (skill) =>{ %>
-                                        <span class="badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
+                                <div class="skills d-flex justify-content-start text-center badges-group">
+                                    <% userr.skills.forEach( (skill) =>{ %>
+                                        <span class="skill badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
                                     <%})%>
                                 </div>
                                     <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
@@ -100,22 +100,22 @@
                             <div class="card profile-card-3">
                                 <div class="background-block">
                                     <p class="text-white p-2 " style="font-size: x-large;" ><%= user.bio %></p>
-                                    </div>
+                                </div>
                                 <div class="profile-thumb-block">
                                     <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
                                 </div>
                                 <div class="card-content">
                                 <h4> <%= user.name %></h4>
-                                <div class="d-flex justify-content-around badges-group">
+                                <div class="skills d-flex justify-content-start text-center badges-group">
                                     <% user.skills.forEach( (skill) =>{ %>
-                                        <span class="badge badge-dark p-1 mb-1"> <%= skill %> </span>                                   
+                                        <span class="skill badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
                                     <%})%>
                                 </div>
                                     <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
                                     <p><small><%= user.email %> </small></p>
                                 </div>
                             </div>
-                        </div>`
+                            </div>`
                     console.log('section.'+e.id)
                     $('.row.p-3.'+e.id).append(add);
             })
@@ -164,17 +164,42 @@ addfriend = (e) =>{
 
 
 <script>
-    function myFunction() {
-      var input, filter;
-      input = document.getElementById('filtered-hackathon');
-      filter = input.value.toUpperCase();
-      const hacknames = document.getElementsByClassName('hacknames');
-      for(let i = 0; i < hacknames.length; i++) {
-          if(hacknames[i].textContent.toUpperCase().indexOf(filter) != -1) {
-            hacknames[i].style.display = '';
-        } 
-        else
-        hacknames[i].style.display = 'none';
-      }
+    function filterHacks() {
+        var input, filter;
+        input = document.getElementById('filtered-hackathon');
+        filter = input.value.toUpperCase();
+        const hacknames = document.getElementsByClassName('hacknames');
+        for(let i = 0; i < hacknames.length; i++) {
+            if(hacknames[i].textContent.toUpperCase().indexOf(filter) != -1) {
+                hacknames[i].style.display = '';
+            } else hacknames[i].style.display = 'none';
+        }
     }
-    </script>
+
+    function filterUsers(){
+        var input, filter;
+        input = document.getElementById('filtered-users');
+        filters = input.value.split(" ");
+        const users = document.getElementsByClassName('user-card');
+        for(let i = 0; i < users.length; i++) {
+            const skills = users[i].querySelectorAll(".skills > .skill");
+            let flag = 0;
+            for(let k = 0;k<filters.length;k++){ 
+                let flag2 = 0;
+                for(let j=0;j<skills.length;j++){ 
+                    if(skills[j].textContent.toUpperCase().indexOf(filters[k].toUpperCase()) != -1) {
+                        flag2 = 1;
+                        break;
+                    }
+                }
+                if(flag2==0) {
+                    flag = 1;
+                    break;
+                }
+            }
+            
+            if(flag==0) users[i].style.display = '';
+            else users[i].style.display = 'none'
+        }
+    }
+</script>
