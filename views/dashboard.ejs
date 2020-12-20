@@ -9,6 +9,7 @@
         <section class="dsh-sec dsh dsh-display">
     <%}%>
             <h2 class="mb-4"> &nbsp;Dashboard</h2>
+            <a href="/user/hackathons" class="btn btn-primary text-white" style="position: absolute; z-index: 100; right: 5%; top: 10%;"> Need a team ? </a>
             <div class="row p-3 <%= currentUser._id %>">
                 <div class="col-md-5 mb-4">
                     <div class="card profile-card-3 shadowEff">
@@ -30,6 +31,12 @@
                         </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p class="display-4 text-right " > My Hackathons </p>
+                    <% currentUser.currentHacks.forEach( hack => { %>
+                        <p  class="text-right" ><a href="<%= hack.link %>"> <%= hack.title %> <sup class="fa fa-external-link" aria-hidden="true"></sup></a></p>
+                    <%  }) %>
                 </div>
             </div>
     </section>
