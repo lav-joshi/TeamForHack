@@ -411,6 +411,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
 .ptr3
 {
   font-size:10px;
+}
 #filtered-hackathon:focus{
   border-color: #FC0254 !important;
   border-radius: 5px;
