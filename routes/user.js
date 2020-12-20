@@ -29,7 +29,6 @@ router.post('/dashboard/editprofile/',auth,(req,res)=>{
         user.github = req.body.github;
         user.linkedin = req.body.linkedin;
         user.bio = req.body.bio;
-        user.skills = req.body.skills;
         await user.save();
         res.redirect('/user/dashboard?section=editProfile');
     })
