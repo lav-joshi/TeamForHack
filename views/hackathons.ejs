@@ -13,7 +13,7 @@
             </div> 
            <h2 class="mb-1 text-center pt-3"> Hackathons</h2>
            <span class="underline mb-4" style="width: 40%;" ></span>
-           <input type="text" id="filtered-hackathon" onkeyup="filterHacks()" width="80%" placeholder="Search for Hackathons">
+           <input type="text" id="filtered-hackathon" onkeyup="filterHacks()" width="80%" placeholder="Search for Hackathons" >
 
         </div>
 
@@ -32,15 +32,18 @@
         </div>
     </div>
     <div class="hackathon-right p-3">
-        <input type="text" id="filtered-users" onkeyup="filterUsers()"  placeholder="Search Skills to filter Users">
+            <div class="d-flex justify-content-center">
+        <input type="text" id="filtered-users" class="mb-3" onkeyup="filterUsers()" placeholder="Search Skills to filter Users" aria-label="Search Skills to filter Users" >
+            </div>
         <% hacksCurrent.forEach((hackathon , i) => { %>
             <% if(i == 0){%>
                     <section class="<%=hackathon.id %> hackSections hackSectionsDisplay" >
             <%}else{%>
                     <section class="<%=hackathon.id %> hackSections">
             <%}%>
-                <p class="display-4 text-white" style="font-size: 30px;"> <%= hackathon.title %></p>
+                <p class="display-4 text-white" style="font-size: 30px; width: fit-content;"> <a class="text-white" href="<%= hackathon.link %>" ><%= hackathon.title %> <sup class="fa fa-external-link" style="font-size:medium; color: rgb(47, 192, 218);" aria-hidden="true"></sup></a></p>
             <% let x = 0 %>
+            <p> <%= hackathon.start_date.toLocaleString('en-US', {  }) %> - <%= hackathon.end_date.toLocaleString('en-US', {}) %> </p>
             <% user.currentHacks.forEach((hack)=>{ %>
                 <% if(String(hack._id) == String(hackathon._id)){  x = 1 %>
                     <p id="checkBox" class="text-white"><input type="checkbox" id="<%=hackathon.id %>" onclick="takePart(this)" checked> Want to be on search list?</p>
@@ -61,16 +64,17 @@
                                 </div>
                                 <div class="card-content">
                                 <% if(user._id != userr.id) { %> 
-                                    <button class="btn btn-info btn-sm" id="<%=userr._id%>"onclick="addfriend(this)">Add as friend</button>
+                                    <button class="addFrnd btn btn-circle" id="<%=userr._id%>"onclick="addfriend(this)"><i class="fa fa-user-plus" aria-hidden="true"></i></button>
                                 <% } %>
-                                <h4> <%= userr.name %></h4>
-                                <div class="skills d-flex justify-content-start text-center badges-group">
-                                    <% userr.skills.forEach( (skill) =>{ %>
-                                        <span class="skill badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
-                                    <%})%>
+                                <div class="d-flex flex-column justify-content-between" style="height: 100% !important;">
+                                    <h4> <%= userr.name %></h4>
+                                    <div class="skills d-flex justify-content-center text-center badges-group">
+                                        <% userr.skills.forEach( (skill) =>{ %>
+                                            <span class="skill badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
+                                        <%})%>
+                                    </div>
+                                    <div class="icon-block align-self-baseline"><a href="<%= userr.github %>"><i class="fa fa-github" aria-hidden="true"></i></a><a href="<%= userr.linkedin %>"> <i class="fa fa-linkedin"></i></a></div>
                                 </div>
-                                    <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
-                                    <p><small><%= userr.email %> </small></p>
                                 </div>
                             </div>
                         </div>
@@ -86,6 +90,7 @@
 
 
 <%- include('partials/footer'); -%>
+
 <script>
     function takePart(e){
         const userid = document.querySelector('.userid').textContent.trim();
@@ -96,23 +101,24 @@
                 method: 'POST'
             })
             .then(()=>{
-                const add = `<div class="col-md-4 mb-4 ${userid}">
-                            <div class="card profile-card-3">
+                const add = `<div class="user-card col-md-4 mb-4 ${userid}">
+                    <div class="card profile-card-3 shadowEff">
                                 <div class="background-block">
                                     <p class="text-white p-2 " style="font-size: x-large;" ><%= user.bio %></p>
                                 </div>
                                 <div class="profile-thumb-block">
-                                    <img src="<%= user.displayPicture %>" alt="profile-image" class="profile"/>
+                                    <img src="<%= user.displayPicture %>" alt="profile-image" class="profile hackProf"/>
                                 </div>
                                 <div class="card-content">
-                                <h4> <%= user.name %></h4>
-                                <div class="skills d-flex justify-content-start text-center badges-group">
-                                    <% user.skills.forEach( (skill) =>{ %>
-                                        <span class="skill badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
-                                    <%})%>
+                                <div class="d-flex flex-column justify-content-between" style="height: 100% !important;">
+                                    <h4> <%= user.name %></h4>
+                                    <div class="skills d-flex justify-content-center text-center badges-group">
+                                        <% user.skills.forEach( (skill) =>{ %>
+                                            <span class="skill badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
+                                        <%})%>
+                                    </div>
+                                    <div class="icon-block align-self-baseline"><a href="<%= user.github %>"><i class="fa fa-github" aria-hidden="true"></i></a><a href="<%= user.linkedin %>"> <i class="fa fa-linkedin"></i></a></div>
                                 </div>
-                                    <div class="icon-block"><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a><a href="#"> <i class="fa fa-linkedin"></i></a></div>
-                                    <p><small><%= user.email %> </small></p>
                                 </div>
                             </div>
                             </div>`

@@ -124,8 +124,7 @@ color: #fff;
   overflow: hidden;
   width: 100%;
   text-align: center;
-  height:fit-content;
-  max-height: 350px;
+  height: 350px;
   min-width: 300px;
   border:none;
   border-radius: 10px;
@@ -210,9 +209,9 @@ color: #fff;
     margin:0 5px;
 }
 .profile-card-3 .icon-block{
-    float:left;
-    width:100%;
-    margin-top:15px;
+  width:100%;
+  height: max-content;
+  margin-top:15px;
 }
 .profile-card-3 .icon-block a{
     text-decoration:none;
@@ -366,4 +365,36 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
 }
 .sidnavLogo img{
   width: 40%;
+}
+#filtered-hackathon:focus{
+  border-color: #FC0254 !important;
+  border-radius: 5px;
+}
+#filtered-users{
+  width: 90%;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  padding-left: 10px;
+}
+#checkBox{
+  position: absolute;
+  right: 5%;
+  top: 15%;
+}
+.addFrnd{
+  position: absolute;
+  top: -20%;
+  right: 20%;
+}
+.addFrnd::after{
+  position: absolute;
+  content: "Add friend";
+  font-size: x-small;
+  opacity: 0;
+  transition: 0.5s ease-in;
+}
+.addFrnd:hover > .addFrnd::after{
+  opacity: 1;
+  transition: 0.5s ease-out;
 }
