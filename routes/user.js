@@ -29,6 +29,7 @@ router.post('/dashboard/editprofile/',auth,(req,res)=>{
         user.github = req.body.github;
         user.linkedin = req.body.linkedin;
         user.bio = req.body.bio;
+        user.skills = req.body.skills;
         await user.save();
         res.redirect('/user/dashboard?section=editProfile');
     })
@@ -85,9 +86,11 @@ router.get('/hackathons', auth, (req, res) => {
                     await hackathonsx.forEach((hackathon)=>{
                         hackathonsCurrent.push(hackathon);
                     })
-                    // console.log(req.user);
-                    res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: req.user});
-
+                    User.findOne({_id:req.user._id},(err,user)=>{
+                        if(err) Error(err);
+                        // console.log(user);
+                        res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: user});
+                    })
                 }
             })
         }
@@ -104,7 +107,7 @@ router.post('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
                 else if(!user) console.log("User id invalid");
                 else {
                     hackathon.participants.push(user);
-                    user.currentHacks.push(hackathon);  
+                    user.currentHacks.push(hackathon);
                     
                     await hackathon.save();
                     await user.save();
