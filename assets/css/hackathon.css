@@ -367,3 +367,49 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
 .sidnavLogo img{
   width: 40%;
 }
+
+.check1
+{
+  margin-left:-10px;
+  margin-bottom: 10px;
+ 
+}
+.check2
+{
+  margin-left:10px;
+  margin-bottom: 10px;
+ 
+}
+
+.ptr
+{
+  padding:2px 10px 2px 10px;;
+  border:solid;
+  border:1px solid rgba(8,25,45, .3);
+  border-radius:6px;
+  border-width:0.00001em;
+  box-shadow: 0 0 2.5px #08192d;
+  min-width: 120px;
+  max-width:250px;
+}
+.ptr2
+{
+  padding:2px 10px 2px 10px;
+  border: solid;
+  border:1px solid rgba(255,0,0,0.3);
+  border-radius:6px;
+  border-width:0.1px;
+  object-fit: contain;
+  line-height: 20px;
+  box-shadow: 0 0 2.5px red;
+  min-width: 120px;
+  max-width:250px;
+}
+.ptr1
+{
+  font-size:10px;
+}
+.ptr3
+{
+  font-size:10px;
+}
