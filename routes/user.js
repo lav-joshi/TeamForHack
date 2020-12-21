@@ -5,6 +5,7 @@ const moment = require('moment');
 const router = express.Router();
 const auth = require('../middleware/authuser');
 const Hackathon = require('../models/Hackathon');
+const Suggestion = require('../models/Suggestion');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
@@ -156,5 +157,20 @@ router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
     res.send("OK");
 });
 
+router.post('/suggestions',auth,(req,res)=>{
+    console.log("here")
+    Suggestion.create({
+        name:req.user.name,
+        email:req.user.email,
+        subject:req.body.subject,
+        message:req.body.message
+    },async(err)=>{
+        if(err) console.log(err);
+        else {
+            console.log("New Suggestion");
+            res.redirect("/user/dashboard");
+        }
+    })
+})
 
 module.exports = router;
