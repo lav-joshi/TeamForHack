@@ -21,8 +21,8 @@ A simple project based on **Node.js**
 1. Run the command **npm start** to start the project.
 
 
-`Presentation Link :- `: [Click here]()
+`Presentation Link :- `: [Click here](https://www.canva.com/design/DAEQ9KghvwY/0jVPym4ch9yQN03koFXKwA/view?utm_content=DAEQ9KghvwY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
 
-`DevFolio Submission Link `: [Click here]()
+`DevFolio Submission Link `: [Click here](https://devfolio.co/submissions/teamforhack)
 
 ## Thank You !!!!
