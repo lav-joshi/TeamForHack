@@ -8,7 +8,7 @@ Our project titled TeamForHack primarily aims at giving opportunities to connect
 
 `DevFolio Submission Link `: [Click here](https://devfolio.co/submissions/teamforhack)
 
-`Video Link`:[Click here](https://www.loom.com/share/1d185f5faa9a4512bd7a64ddbc028ba4)
+`Video Link`:[Click here](https://youtu.be/9dgO7NnOlY8)
 
 
 ## Instructions for Setup:
