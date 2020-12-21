@@ -95,7 +95,7 @@
 <script>
     function takePart(e){
         const userid = document.querySelector('.userid').textContent.trim();
-        const uri = "http://localhost:3000/user/hackathons/insert/"+ e.id +"/"+userid;
+        const uri = "https://teamforhack.herokuapp.com/user/hackathons/insert/"+ e.id +"/"+userid;
         console.log(uri);
         if(e.checked){
             fetch(uri, {
