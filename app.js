@@ -6,7 +6,7 @@ const cookieSession = require("cookie-session");
 const bodyParser = require("body-parser");
 const methodOverride = require('method-override');
 const passport = require("passport");
-const keys = require("./config/keys");
+// const keys = require("./config/keys");
 const socketio = require("socket.io");
 const formatMessage = require('./utils/messages');
 const moment  = require("moment");
@@ -37,7 +37,7 @@ app.use(express.static("./assets"));
 app.use(
     cookieSession({
       name: "session",
-      keys: [keys.sessionSecret]
+      keys: [process.env.sessionSecret || require("./config/keys").sessionSecret]
     })
   );
 
