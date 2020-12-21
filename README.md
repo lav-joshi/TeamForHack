@@ -25,4 +25,6 @@ A simple project based on **Node.js**
 
 `DevFolio Submission Link `: [Click here](https://devfolio.co/submissions/teamforhack)
 
+`Video Link`:[Click here](https://www.loom.com/share/1d185f5faa9a4512bd7a64ddbc028ba4)
+
 ## Thank You !!!!
