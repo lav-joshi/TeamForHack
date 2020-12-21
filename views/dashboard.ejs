@@ -46,15 +46,15 @@
         <section class="dsh-sec editProfile">
     <%}%>
         <h2 class="mb-4"> &nbsp;Edit Profile</h2>
-        <form action="dashboard/editprofile/" method="POST" autocomplete="off"> 
+        <form action="dashboard/editprofile/" method="POST" class="needs-validation" novalidate autocomplete="off"> 
             <div class="form-row">
             <div class="form-group col-md-2">
                 <label>Contact</label>
-                <input type="text" class="form-control" name="contact" placeholder="Contact Number" value="<%= currentUser.contact %>">
+                <input type="text" class="form-control contactNo" name="contact" placeholder="Contact Number" maxlength="10" value="<%= currentUser.contact %>">
             </div>
             <div class="form-group col-md-12">
-                <label>Bio</label>
-                <input type="text" class="form-control" name="bio" placeholder="" value="<%= currentUser.bio %>">
+                <label>Profession</label>
+                <input type="text" class="form-control" name="bio" placeholder="" maxlength="25" value="<%= currentUser.bio %>">
             </div>
                 <div class="form-group col-md-4">
                     <label>Linkedin Link</label>
@@ -92,7 +92,7 @@
         
             <div class="row">
                 <div class="col-md-9 mb-md-0 mb-5">
-                    <form id="contact-form" name="contact-form" action="/user/suggestions" method="POST">
+                    <form id="contact-form" class="needs-validation" name="contact-form" action="/user/suggestions" method="POST" autocomplete="off" novalidate>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="md-form mb-2">
@@ -111,7 +111,9 @@
                             <div class="col-md-12">
                                 <div class="md-form mb-2">
                                     <label for="subject" class="">Subject</label>
-                                    <input type="text" id="subject" name="subject" class="form-control">
+                                    <input type="text" id="subject" name="subject" class="form-control" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +122,7 @@
         
                                 <div class="md-form">
                                     <label for="message">Your message</label>
-                                    <textarea type="text" id="message" name="message" rows="10" class="form-control md-textarea" style="height: 150px !important;" ></textarea>
+                                    <textarea type="text" id="message" name="message" rows="10" class="form-control md-textarea" style="height: 150px !important;" required></textarea>
                                 </div>
         
                             </div>
@@ -184,7 +186,23 @@
         })    
     }
 </script>
-
+<script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+    </script>
 
 
 <%- include('partials/footer'); -%>
