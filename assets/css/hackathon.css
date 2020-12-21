@@ -366,6 +366,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
   width: 40%;
 }
 .chat-messages{
+  overflow: hidden;
   overflow-y: scroll;
 }
 ::-webkit-scrollbar {
@@ -475,5 +476,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
   opacity: 1;
   transition: 0.5s ease-out;
 }
-
+.gotoChat{
+  position: absolute;
+  right: 5%;
+  top: 9%;
+}
 
