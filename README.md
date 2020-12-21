@@ -1,10 +1,15 @@
 # Project for InOut7.0
 
-Collaborate, build, and hack it!
+Team Building Platform for Hackathons!
 
 Our project titled TeamForHack primarily aims at giving opportunities to connect, collaborate, and work on innovative ideas with like-minded developers across the globe on hackathons.
 
-A simple project based on **Node.js**
+`Presentation Link :- `: [Click here](https://www.canva.com/design/DAEQ9KghvwY/0jVPym4ch9yQN03koFXKwA/view?utm_content=DAEQ9KghvwY&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
+
+`DevFolio Submission Link `: [Click here](https://devfolio.co/submissions/teamforhack)
+
+`Video Link`:[Click here](https://youtu.be/9dgO7NnOlY8)
+
 
 ## Instructions for Setup:
 1. Download the zip file and extract it to a New Folder.
@@ -21,8 +26,4 @@ A simple project based on **Node.js**
 1. Run the command **npm start** to start the project.
 
 
-`Presentation Link :- `: [Click here]()
-
-`DevFolio Submission Link `: [Click here]()
-
-## Thank You !!!!
+## Thank You !!
