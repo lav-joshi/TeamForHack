@@ -389,7 +389,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
   border-width:0.00001em;
   box-shadow: 0 0 2.5px #08192d;
   min-width: 120px;
-  max-width:250px;
+  max-width:300px;
+  word-wrap: normal;
+  overflow-wrap: break-word;
 }
 .ptr2
 {
@@ -402,7 +404,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
   line-height: 20px;
   box-shadow: 0 0 2.5px red;
   min-width: 120px;
-  max-width:250px;
+  max-width:300px;
+  word-wrap: normal;
+  overflow-wrap: break-word;
 }
 .ptr1
 {
