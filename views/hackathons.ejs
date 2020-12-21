@@ -188,6 +188,7 @@ addfriend = (e) =>{
         filters = input.value.split(" ");
         const users = document.getElementsByClassName('user-card');
         for(let i = 0; i < users.length; i++) {
+            if(filters[0].trim().length == 0){ users[i].style.display = ''; continue;}
             const skills = users[i].querySelectorAll(".skills > .skill");
             let flag = 0;
             for(let k = 0;k<filters.length;k++){ 

@@ -27,7 +27,7 @@ passport.authenticate("google", { failureRedirect: "/" }),
 
 router.get("/logout", (req,res)=>{
     User.findOne({ email: req.user.email },async(err,user)=>{
-        user.accessToken = [];
+        user.accessToken.splice(user.accessToken.length-1,1);
         await user.save();
     })
     req.logout();

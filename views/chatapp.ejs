@@ -59,6 +59,8 @@
 
   window.onload = function() {
     document.querySelector('section').style.display = "";
+    let t = document.getElementsByClassName(`chat-messages`)[0];
+    t.scrollTop = t.scrollHeight;
     user_id = user.textContent;
     socket.emit('joinRoom',{user_id});
   };
@@ -73,6 +75,7 @@
       chatForm[i].addEventListener('submit',(e)=>{
         e.preventDefault();
         const msg = e.target.elements.msg.value;
+        if(msg.trim() == "") return;
         //emit message to server
         let friend_id = e.target.id;
         socket.emit('chatMessage',{msg,friend_id,user_id});
@@ -89,20 +92,20 @@
     const div =  document.createElement('div');
     let notMine = '';
     const userId = document.getElementById('user_id');
-    // console.log(userId.textContent.trim())
+
     let ptr1 = "2", ptr2 = "3", check="check2";
-if(message.user_id == userId.textContent.trim()){
-    // console.log("YES NOtme")
-    notMine= "align-items-end";
-    ptr1 = ""; ptr2 = "1";
-    check = "check1";
-  }
+    if(message.user_id == userId.textContent.trim()){
+      notMine= "align-items-end";
+      ptr1 = ""; ptr2 = "1";
+      check = "check1";
+    }
   div.innerHTML = `
     <div class="d-flex flex-column ${notMine} ${check}" style="width: 100%;" > <span class="ptr${ptr1}"> ${message.text}</span><span class="ptr${ptr2}">${message.time}</span> </div>
     `;
   let frndClss =  document.getElementsByClassName(`chat-messages ${message.friend_id}`);
   console.log(frndClss);
   frndClss[0].appendChild(div);
+  frndClss[0].scrollTop = frndClss[0].scrollHeight; 
 }
 
   function render(e){
