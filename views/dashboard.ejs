@@ -48,14 +48,18 @@
         <h2 class="mb-4"> &nbsp;Edit Profile</h2>
         <form action="dashboard/editprofile/" method="POST" class="needs-validation" novalidate autocomplete="off"> 
             <div class="form-row">
-            <div class="form-group col-md-2">
-                <label>Contact</label>
-                <input type="text" class="form-control contactNo" name="contact" placeholder="Contact Number" maxlength="10" value="<%= currentUser.contact %>">
+                <div class="form-group col-md-2">
+                    <label>Contact</label>
+                    <input type="text" class="form-control contactNo" name="contact" placeholder="Contact Number" maxlength="10" value="<%= currentUser.contact %>">
+                </div>
             </div>
-            <div class="form-group col-md-12">
-                <label>Profession</label>
-                <input type="text" class="form-control" name="bio" placeholder="" maxlength="25" value="<%= currentUser.bio %>">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label id="proCounter">Profession (0/25)</label>
+                    <input type="text" class="form-control " name="bio" placeholder="" maxlength="25" onkeyup="counter(this)" value="<%= currentUser.bio %>">
+                </div>
             </div>
+            <div class="form-row">
                 <div class="form-group col-md-4">
                     <label>Linkedin Link</label>
                     <input type="text" class="form-control" name="linkedin" placeholder="Link" value="<%= currentUser.linkedin %>">
@@ -202,7 +206,11 @@
         });
       }, false);
     })();
-    </script>
 
+    function counter(e){
+        const label = document.getElementById('proCounter');
+        label.textContent = "Profession (" + (e.value.length) + "/25)"
+    }
+    </script>
 
 <%- include('partials/footer'); -%>
