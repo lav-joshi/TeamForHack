@@ -8331,5 +8331,9 @@ a[data-toggle="collapse"] {
 
 .subscribe-form .form-control {
   background: #5356b1; }
-
-  
+  .components li a{
+    cursor: pointer;
+  }
+  .brandSvg{
+    width: 50px !important;
+  }

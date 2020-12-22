@@ -5,46 +5,47 @@ const moment = require('moment');
 const router = express.Router();
 const auth = require('../middleware/authuser');
 const Hackathon = require('../models/Hackathon');
+const Suggestion = require('../models/Suggestion');
 
 router.use(bodyParser.urlencoded({ extended: true }));
 
 router.get('/dashboard', auth, (req, res) => {
-    User.findOne({id: req.user.id})
+    User.findOne({_id: req.user._id})
     .populate({
         path: 'currentHacks'
     })
     .exec((err,user)=>{
         if(err) Error(err);
         else {
-            // console.log(user);
-            res.render('dashboard', { currentUser: user });
+            // console.log(req.query);
+            res.render('dashboard', { currentUser: user, query:req.query});
         }
     })
 });
 
 router.post('/dashboard/editprofile/',auth,(req,res)=>{
-    User.findOne({id: req.user.id},async (err,user)=>{
+    User.findOne({_id: req.user._id},async (err,user)=>{
         if(err) Error(err);
         user.contact = req.body.contact;
         user.github = req.body.github;
         user.linkedin = req.body.linkedin;
         user.bio = req.body.bio;
         await user.save();
+        res.redirect('/user/dashboard?section=editProfile');
     })
-    res.redirect('/');
 })
 router.post('/dashboard/editprofile/addskill/',auth,(req,res)=>{
-    User.findOne({id: req.user.id},async(err,user)=>{
+    User.findOne({_id: req.user._id},async(err,user)=>{
         if(err) Error(err);
         req.body.skills.split(",").forEach((skill)=>{
             user.skills.push(skill);
         })
         await user.save(); 
+        res.redirect('/user/dashboard?section=editProfile');
     })
-    res.redirect('/');
 })
 router.post('/dashboard/editprofile/del',auth,(req,res)=>{
-    User.findOne({id: req.user.id},async(err,user)=>{
+    User.findOne({_id: req.user._id},async(err,user)=>{
         if(err) Error(err);
         user.skills.forEach((skill,i)=>{
             if(skill == req.body.skill){
@@ -52,8 +53,8 @@ router.post('/dashboard/editprofile/del',auth,(req,res)=>{
             }
         })
         await user.save();
+        res.redirect('/user/dashboard?section=editProfile');
     })
-    res.redirect('/');
 })
 
 router.get('/hackathons', auth, (req, res) => {
@@ -85,9 +86,11 @@ router.get('/hackathons', auth, (req, res) => {
                     await hackathonsx.forEach((hackathon)=>{
                         hackathonsCurrent.push(hackathon);
                     })
-                    console.log(req.user);
-                    res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: req.user});
-
+                    User.findOne({_id:req.user._id},(err,user)=>{
+                        if(err) Error(err);
+                        // console.log(user);
+                        res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: user});
+                    })
                 }
             })
         }
@@ -152,6 +155,22 @@ router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
         }
     })
     res.send("OK");
+});
+
+router.post('/suggestions',auth,(req,res)=>{
+    console.log("here")
+    Suggestion.create({
+        name:req.user.name,
+        email:req.user.email,
+        subject:req.body.subject,
+        message:req.body.message
+    },async(err)=>{
+        if(err) console.log(err);
+        else {
+            console.log("New Suggestion");
+            res.redirect("/user/dashboard");
+        }
+    })
 })
 
 module.exports = router;

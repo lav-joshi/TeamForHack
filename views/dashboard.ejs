@@ -1,29 +1,72 @@
 <%- include('partials/header'); -%>
 <%- include('sidenav'); -%>
 
-<div id="content" class="p-4 p-md-5 pt-5">
-    <section id="dashboard">
-            <h2 class="mb-4"> &nbsp;Dashboard</h2>
-    </section>
 
-    <section id="editprofile"> 
-        <form action="dashboard/editprofile/" method="POST" autocomplete="off"> 
-            <div class="form-group col-md-2">
-                <label>Contact</label>
-                <input type="text" class="form-control" name="contact" placeholder="Contact Number" value="<%= currentUser.contact %>">
+<div id="content" class="p-4 p-md-5 pt-5" style="overflow-y: scroll;">
+    <% if(query.section){ %>
+        <section class="dsh-sec dsh">
+    <% } else {%>
+        <section class="dsh-sec dsh dsh-display">
+    <%}%>
+            <h2 class="mb-4"> &nbsp;Dashboard</h2>
+            <a href="/user/hackathons" class="btn btn-primary text-white" style="position: absolute; z-index: 100; right: 5%; top: 10%;"> Need a team ? </a>
+            <div class="row p-3 <%= currentUser._id %>">
+                <div class="col-md-5 mb-4">
+                    <div class="card profile-card-3 shadowEff">
+                        <div class="background-block">
+                            <p class="text-white p-2 " style="font-size: x-large;" ><%= currentUser.bio %></p>
+                        </div>
+                        <div class="profile-thumb-block">
+                            <img src="<%= currentUser.displayPicture %>" alt="profile-image" class="profile hackProf"/>
+                        </div>
+                        <div class="card-content">
+                        <div class="d-flex flex-column justify-content-between" style="height: 100% !important;">
+                            <h4> <%= currentUser.name %></h4>
+                            <div class="skills d-flex justify-content-center text-center badges-group">
+                                <% currentUser.skills.forEach( (skill) =>{ %>
+                                    <span class="skill badge badge-dark p-1 m-1"> <%= skill %> </span>                                   
+                                <%})%>
+                            </div>
+                            <div class="icon-block align-self-baseline"><a href="<%= currentUser.github %>"><i class="fa fa-github" aria-hidden="true"></i></a><a href="<%= currentUser.linkedin %>"> <i class="fa fa-linkedin"></i></a></div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <p class="display-4 text-right " > My Hackathons </p>
+                    <% currentUser.currentHacks.forEach( hack => { %>
+                        <p  class="text-right" ><a href="<%= hack.link %>"> <%= hack.title %> <sup class="fa fa-external-link" aria-hidden="true"></sup></a></p>
+                    <%  }) %>
+                </div>
             </div>
-            <div class="form-group col-md-12">
-                <label>Bio</label>
-                <input type="text" class="form-control" name="bio" placeholder="" value="<%= currentUser.bio %>">
+    </section>
+    <% if(query.section){ %>
+        <section class="dsh-sec editProfile dsh-display"> 
+    <% } else {%>
+        <section class="dsh-sec editProfile">
+    <%}%>
+        <h2 class="mb-4"> &nbsp;Edit Profile</h2>
+        <form action="dashboard/editprofile/" method="POST" class="needs-validation" novalidate autocomplete="off"> 
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label>Contact</label>
+                    <input type="text" class="form-control contactNo" name="contact" placeholder="Contact Number" maxlength="10" value="<%= currentUser.contact %>">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label id="proCounter">Profession (0/25)</label>
+                    <input type="text" class="form-control " name="bio" placeholder="" maxlength="25" onkeyup="counter(this)" value="<%= currentUser.bio %>">
+                </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label>Linkedin</label>
-                    <input type="text" class="form-control" name="linkedin" placeholder="" value="<%= currentUser.linkedin %>">
+                    <label>Linkedin Link</label>
+                    <input type="text" class="form-control" name="linkedin" placeholder="Link" value="<%= currentUser.linkedin %>">
                 </div>
                 <div class="form-group col-md-4">
-                    <label>Github</label>
-                    <input type="text" class="form-control" name="github" placeholder="" value="<%= currentUser.github %>"> 
+                    <label>Github Link</label> 
+                    <input type="text" class="form-control" name="github" placeholder="Link" value="<%= currentUser.github %>">
                 </div>
             </div>
             <div class="form-group">
@@ -34,7 +77,7 @@
         <div class="d-flex justify-content-start badges-group">
             <% currentUser.skills.forEach((skill)=>{ %>
                 <form action="dashboard/editprofile/del" method="POST" autocomplete="off"> 
-                    <button class="btn mb-2 mr-2" type="submit" name="skill" value="<%=skill %>"><%=skill %>&nbsp;<span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+                    <button class="btn mb-2 mr-2" style="background-color: #e8e8e8; " type="submit" name="skill" value="<%=skill %>"><%=skill %>&nbsp;<span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span></button>
                 </form>
             <% }) %>
         </div>
@@ -45,9 +88,130 @@
             </div>
         </form>
     </section>
+    <section class="dsh-sec suggestion">
+        <h2 class="mb-4"> &nbsp;Suggestions</h2>
+        <a href="https://github.com/lav-joshi/TeamForHack" class="btn btn-primary text-white" style="position: absolute; z-index: 100; right: 5%; top: 8%;"> Wanna contribute? </a>
+        <div class="text-dark ">
+            <p class="text-center w-responsive">Do you have any suggestions/feedback?</p>
+            <p class="text-center w-responsive mx-auto mb-5"> Feel free to contact us. Our team is dedicated in making this platform more user friendly. Any other questions are welcome as well.</p>
+        
+            <div class="row">
+                <div class="col-md-9 mb-md-0 mb-5">
+                    <form id="contact-form" class="needs-validation" name="contact-form" action="/user/suggestions" method="POST" autocomplete="off" novalidate>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="md-form mb-2">
+                                    <label for="name" class="">Your name</label>
+                                    <input type="text" id="name" name="name" value="<%= currentUser.name %>" class="form-control" disabled>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="md-form mb-2">
+                                    <label for="email" class="">Your email</label>
+                                    <input type="text" id="email" name="email" value="<%= currentUser.email %>" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-2">
+                                    <label for="subject" class="">Subject</label>
+                                    <input type="text" id="subject" name="subject" class="form-control" required>
+                                    <div class="valid-feedback">Valid.</div>
+                                    <div class="invalid-feedback">Please fill out this field.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+        
+                                <div class="md-form">
+                                    <label for="message">Your message</label>
+                                    <textarea type="text" id="message" name="message" rows="10" class="form-control md-textarea" style="height: 150px !important;" required></textarea>
+                                </div>
+        
+                            </div>
+                        </div>
+        
+                        <div class="text-center text-md-left mt-4">
+                            <button type="submit" class="btn btn-primary">Send</a>
+                        </div>
+                    </form>
+        
+                    <div class="status"></div>
+                </div>
+                <div class="col-md-3 text-center">
+                    <ul class="list-unstyled mb-2">
+                        <li><i class="fa fa-map-marker mt-4"  ></i>
+                            <p> IIIT Lucknow , India </p>
+                        </li>
+        
+                        <li><i class="fa fa-phone mt-4"></i>
+                            <p>+91 XXXXXXXXXX</p>
+                        </li>
+        
+                        <li><i class="fa fa-envelope mt-4"></i>
+                            <p>teamXYZ@gmail.com</p>
+                        </li>
+                    </ul>
+                </div>
+        
+            </div>
+        </div>
+    </section>
 </div>
 
 
+<script>
+    function dshChange(e){
+        let targ =  e.className;
+        let lists = document.querySelectorAll('.sidenavList li');
+        lists.forEach(li => {
+            if(li.className == 'active'){
+                if(li.childNodes[1].className !=  targ){
+                    li.classList.remove('active');
+                }
+            }else{
+                if(li.childNodes[1].className ==  targ){
+                    li.classList.add('active');
+                }
+            }
+        })
+        targ = targ.slice(0 , targ.length -1);
+        let dshSecs = document.querySelectorAll('.dsh-sec');
+        let activeLi = document.querySelectorAll('.components li');
+        console.log(activeLi);
+        dshSecs.forEach(sec => {
+            if(sec.classList.length == 3){
+                sec.classList.remove("dsh-display");
+            }
+            if( sec.className == 'dsh-sec ' + targ){
+                sec.classList.add("dsh-display");
+            }
+        })    
+    }
+</script>
+<script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        var forms = document.getElementsByClassName('needs-validation');
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
 
+    function counter(e){
+        const label = document.getElementById('proCounter');
+        label.textContent = "Profession (" + (e.value.length) + "/25)"
+    }
+    </script>
 
 <%- include('partials/footer'); -%>

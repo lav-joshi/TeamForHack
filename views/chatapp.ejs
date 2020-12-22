@@ -1,0 +1,125 @@
+<%- include('partials/header'); -%>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha512-BHtomM5XDcUy7tDNcrcX1Eh0RogdWiMdXl3wJcKB3PFekXb3l5aDzymaTher61u6vEZySnoC/SAj2Y/p918Y3w==" crossorigin="anonymous"></script>
+<div class="chat-container" >
+  <div class="chat-total d-flex flex-row shadowEff" >
+    <div class="chat-left text-center text-dark">
+      <a href="/user/dashboard" class="mt-2 ml-2"  style="position: absolute;" > <i class="fa fa-chevron-left" style="font-size : x-large;"  aria-hidden="true"></i> </a>
+      <div class="m-3 d-flex flex-row justify-content-center align-items-end" style="color: #FC0254;
+      border-bottom: 1px solid #232323cb;" >
+        <div class="display-4 d-flex align-items-end" >
+        TFH.
+      </div>
+      <span>Chat</span></div>
+      <div class="chat-users" style="height: 100%;">
+        <%currentUser.friends.forEach((friend)=>{%>
+          <div class="left" id="<%=friend.friend_id%>" onclick="render(this)"><%=friend.name%></div>
+      <%})%>
+      </div>
+    </div>
+    <div class="chat-right">
+      <div id="user_id" hidden><%=currentUser._id%></div>
+        <%currentUser.friends.forEach((friend)=>{%>
+          <section id="<%=friend.friend_id%>" style="display: none; height: 100%;">
+            <div class="navbar navbar-expand-lg" style="width: 100% !important; margin: 0px !important;" >
+              <div class="navbar-brand">
+                <%=friend.name%>
+              </div>
+            </div>
+            <div class="msg-box d-flex flex-column justify-content-end" >
+                <div class="chat-messages <%=friend.friend_id%>">
+                  <% friend.chats.forEach((chat)=>{ %>
+                    <% if(chat.user_id == currentUser._id ){ %>
+                      <div class="d-flex flex-column align-items-end check1" style="width: 100%;" > <span class="ptr"> <%= chat.msg %></span><span class="ptr1"><%= chat.time %></span> </div>
+                    <% } else { %>
+                      <div class="d-flex flex-column check2" style="width: 100%;" > <span class="ptr2"> <%= chat.msg %></span><span class="ptr3"><%= chat.time %></span> </div>
+                    <% } %>
+                  <% }) %>
+                </div>
+            </div>
+            <form class="chat-form text-center d-flex flex-row justify-content-around p-1" id="<%=friend.friend_id%>">
+              <input class="form-control chat-hover" type="text" placeholder="Write message" id="msg" autocomplete="OFF">
+              <button class="btn btn-primary" >Send</button>
+            </form>
+          </section>
+        <%})%>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+  const chatForm  = document.getElementsByClassName('chat-form');
+  const user = document.getElementById('user_id');
+  let user_id ;
+  const socket = io("/");
+
+  window.onload = function() {
+    document.querySelector('section').style.display = "";
+    let t = document.getElementsByClassName(`chat-messages`)[0];
+    t.scrollTop = t.scrollHeight;
+    user_id = user.textContent;
+    socket.emit('joinRoom',{user_id});
+  };
+ 
+
+  //Message from server
+  socket.on('message',message=>{
+      outputMessage(message); 
+  });
+
+  for(let i=0;i<chatForm.length;i++){
+      chatForm[i].addEventListener('submit',(e)=>{
+        e.preventDefault();
+        const msg = e.target.elements.msg.value;
+        if(msg.trim() == "") return;
+        //emit message to server
+        let friend_id = e.target.id;
+        socket.emit('chatMessage',{msg,friend_id,user_id});
+
+        //clear inputs
+        e.target.elements.msg.value='';
+        e.target.elements.msg.focus();
+      });
+    }
+   
+
+  function outputMessage(message){
+    // console.log(message)
+    const div =  document.createElement('div');
+    let notMine = '';
+    const userId = document.getElementById('user_id');
+
+    let ptr1 = "2", ptr2 = "3", check="check2";
+    if(message.user_id == userId.textContent.trim()){
+      notMine= "align-items-end";
+      ptr1 = ""; ptr2 = "1";
+      check = "check1";
+    }
+  div.innerHTML = `
+    <div class="d-flex flex-column ${notMine} ${check}" style="width: 100%;" > <span class="ptr${ptr1}"> ${message.text}</span><span class="ptr${ptr2}">${message.time}</span> </div>
+    `;
+  let frndClss =  document.getElementsByClassName(`chat-messages ${message.friend_id}`);
+  console.log(frndClss);
+  frndClss[0].appendChild(div);
+  frndClss[0].scrollTop = frndClss[0].scrollHeight; 
+}
+
+  function render(e){
+    const sections = document.querySelectorAll('section');
+    for(let i=0;i<sections.length;i++){
+      if(sections[i].id == e.id){
+        sections[i].style.display = "";
+      } else {
+        sections[i].style.display = "none";
+      }
+    }
+  }
+</script>
+
+
+<%- include('partials/footer'); -%>
+

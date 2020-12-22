@@ -1,6 +1,6 @@
 <%- include('partials/header'); -%>
 <nav class="navbar navbar-expand-lg p-3 home-nav">
-  <a class="navbar-brand ml-5 mr-4" href="#"><h2 style="color: #FC0254;">XYZ.</h2></a>
+  <a class="navbar-brand ml-5 mr-4" href="#"><img class="brandSvg" src="/svg/TFH.svg" alt=""></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon" style="color: #FC0254 !important; font-size: xx-large; font-weight: 100;" ><i class="fa fa-bars" aria-hidden="true"></i></span>
   </button>
@@ -15,7 +15,7 @@
       </li>
       
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form action="/auth/google" class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
@@ -24,8 +24,15 @@
 
 <div id="content" class="p-4 p-md-5 landing">
   <div class="container main-div">
-    <div>
-      <h2 class="mb-4"> &nbsp;Landing</h2>
+    <div class="heading">
+      <div class="head-primary">
+      <p>Welcome  To  <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TeamForHack!</p>
+      </div>
+      <div class="head-secondary">
+        <p style="width:500px;"><span>Where Ideas begin.</span><br></p>
+        <p style="margin-top:-12px;">Get in touch with awesome developers just by one click.
+          <br> Work on innovative ideas, collabarate and meet new developers <br>across the globe.</p>
+      </div>
     </div>
     <div>
       <img class="homeSvg" src="/svg/work.svg" alt="">
@@ -46,7 +53,7 @@
   </div><div class="text-center">
     <img src="/images/collab.jpeg" alt="">
     <p>Collaborate
-      and teamp up</p>
+      and team up</p>
   </div><div class="text-center">
     <img src="/images/bulb.jpeg" alt="">
     <p>Work on 

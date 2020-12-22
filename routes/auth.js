@@ -25,11 +25,11 @@ passport.authenticate("google", { failureRedirect: "/" }),
   }
 );
 
-router.get("/logout",async (req,res)=>{
-    await User.updateOne(
-        { email: req.user.email },
-        { $pull: { accessToken: { $in: [req.session.token] } } }
-    );
+router.get("/logout", (req,res)=>{
+    User.findOne({ email: req.user.email },async(err,user)=>{
+        user.accessToken.splice(user.accessToken.length-1,1);
+        await user.save();
+    })
     req.logout();
     req.session = null;
     req.token = null;

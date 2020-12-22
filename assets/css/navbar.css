@@ -1,20 +1,23 @@
-.home-nav{
-    background-color: #08192D !important;
+.home-nav {
+  background-color: #08192d !important;
 }
-.home-nav a{
-    color: #FFF !important;
+.home-nav a {
+  color: #fff !important;
 }
-.main-div{
-    display:flex;
-    flex-wrap: wrap;
-    flex-direction: row;
+.main-div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
-.main-div div{
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    width: 50%;
+.main-div div {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  width: 50%;
 }
-.homeSvg{
-    width: 110%;
+.homeSvg {
+  width: 110%;
+}
+.brandSvg {
+  width: 60px;
 }
