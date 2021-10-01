@@ -58,7 +58,6 @@ router.post('/dashboard/editprofile/del',auth,(req,res)=>{
 })
 
 router.get('/hackathons', auth, (req, res) => {
-    // const hackathonsFinished = [];
     const hackathonsCurrent = [];
     Hackathon.find({finished:false})
     .sort({
@@ -88,7 +87,6 @@ router.get('/hackathons', auth, (req, res) => {
                     })
                     User.findOne({_id:req.user._id},(err,user)=>{
                         if(err) Error(err);
-                        // console.log(user);
                         res.render('hackathons',{ hacksCurrent: hackathonsCurrent, user: user});
                     })
                 }
@@ -124,12 +122,10 @@ router.delete('/hackathons/insert/:hackathonid/:userid',auth, (req,res)=>{
         if(err) Error("Could not process fetch request "+ err);
         else if(!hackathon) console.log("Hackathon id invalid");
         else {
-            // console.log(hackathon.participants);
             User.findOne({_id: req.params.userid},async (err, user)=>{
                 if(err) Error("Could not process fetch request "+ err);
                 else if(!user) console.log("User id invalid");
                 else {
-                    // console.log(userr);
                     let flag = 1;
                     for(let i=0;i<hackathon.participants.length;i++){ 
                         if(hackathon.participants[i].toString() == user._id.toString()){
