@@ -19,7 +19,7 @@ const HackSchema = new mongoose.Schema({
     trim: true,
   },
   finished:{
-    type:Boolean,
+    type: Boolean,
     required: true
   },
   participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
