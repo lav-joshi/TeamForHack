@@ -1,4 +1,5 @@
 //Importing npm packages
+
 const express = require("express");
 const http = require("http");
 const cookieParser = require("cookie-parser");
@@ -10,15 +11,19 @@ const keys = require("./config/keys");
 const socketio = require("socket.io");
 const formatMessage = require('./utils/messages');
 const moment  = require("moment");
+
+
 //Importing MongoDB models
 require("./db/mongoose");
 const User = require("./models/User");
 const webScraper = require("./db/webScraper");
 
+
 //Importing Routes
 const user = require("./routes/user");
 const auth = require("./routes/auth");
 const friend = require("./routes/friend");
+
 
 //Variables
 const port = process.env.PORT||3000;
@@ -82,7 +87,7 @@ io.on('connection',(socket)=>{
       console.log("Room Joined");
     });
   
-  // Listen for chat message
+  // Listen for the chat message
   socket.on('chatMessage',({msg,friend_id,user_id})=>{
 
     User.findOne({_id:user_id},async(err,user)=>{
@@ -127,5 +132,5 @@ io.on('connection',(socket)=>{
 
 
 server.listen(port,()=>{
-    console.log("Server started on "+ port + "!");
+    console.log("Server started on the "+ port + "!");
 });
