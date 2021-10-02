@@ -2,8 +2,10 @@ const request = require('request');
 
 const Hackathons = require('../models/Hackathon');
 
+// devfolio url for scrapping hackathons list
 const uri = "https://devfolio.co/api/hackathons?filter=all&page=1&limit=20";
 
+// scrapping and storing the information of recent hackathons
 module.exports = ()=>{
     Hackathons.find({}, async(err,hackathons)=>{
         if(err){
