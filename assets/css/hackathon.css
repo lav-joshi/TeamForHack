@@ -19,7 +19,7 @@
 }
 .back-crcle{
   font-size: medium;
-  color: #fff;
+  color: #ffffff;
   position: relative;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@
 .back-crcle:hover{
   transform: scale(1.1);
   transition: 0.25s ease;
-color: #fff;
+color: #ffffff;
 }
 .underline{
     height: 2px;
@@ -52,7 +52,7 @@ color: #fff;
   margin-top:-100px ;
 }
 .mn p{
-  color: #FFF !important; font-size: 27px;font-family: 'Raleway', sans-serif;
+  color: #FFFFFF !important; font-size: 27px;font-family: 'Raleway', sans-serif;
 }
 .usp{
   display: flex;
@@ -82,7 +82,7 @@ color: #fff;
   justify-content: center;
 }
 .soc-icons{
-  color: #fff;
+  color: #ffffff;
   font-size: xx-large;
 }
 .soc-icons i{
@@ -234,19 +234,7 @@ color: #fff;
 .form-control{
   border: 1px solid #23232321 !important;
 }
-.chat-container{
-  background: rgb(8,25,45);
-background: -moz-linear-gradient(180deg, rgba(8,25,45,1) 0%, rgba(65,78,93,1) 20%, rgba(215,219,214,1) 20%, rgba(215,219,214,1) 100%);
-background: -webkit-linear-gradient(180deg, rgba(8,25,45,1) 0%, rgba(65,78,93,1) 20%, rgba(215,219,214,1) 20%, rgba(215,219,214,1) 100%);
-background: linear-gradient(180deg, rgba(8,25,45,1) 0%, rgba(65,78,93,1) 20%, rgba(215,219,214,1) 20%, rgba(215,219,214,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endColorstr="#d7dbd6",GradientType=1);
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
+
 .chat-total{
   background-color: #fff;
   width: 90vw;
@@ -284,6 +272,19 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endCo
 }
 .chat-form input{
   width: 92%;
+}
+.chat-container{
+  background: rgb(8,25,45);
+background: -moz-linear-gradient(180deg, rgba(8,25,45,1) 0%, rgba(65,78,93,1) 20%, rgba(215,219,214,1) 20%, rgba(215,219,214,1) 100%);
+background: -webkit-linear-gradient(180deg, rgba(8,25,45,1) 0%, rgba(65,78,93,1) 20%, rgba(215,219,214,1) 20%, rgba(215,219,214,1) 100%);
+background: linear-gradient(180deg, rgba(8,25,45,1) 0%, rgba(65,78,93,1) 20%, rgba(215,219,214,1) 20%, rgba(215,219,214,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#08192d",endColorstr="#d7dbd6",GradientType=1);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 .heading
 {
